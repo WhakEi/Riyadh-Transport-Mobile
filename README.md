@@ -2,14 +2,14 @@
 
 An Android mobile application for Riyadh public transport, built in Java. This app provides route planning, station information, and live arrival times for metro and bus services in Riyadh.
 
-## Features
+## Feature Checklist
 
-- **Route Planning**: Find routes between locations using public transport
-- **Station Search**: Browse and search all metro and bus stations
-- **Live Arrivals**: View real-time arrival information for metro and buses
-- **Interactive Map**: View stations and routes with OpenStreetMap and MapTiler
-- **GPS Location**: Use your current location as starting point
-- **Multilingual**: Supports English and Arabic (العربية) with language-specific map labels
+- ✅ **Route Planning**: Find routes between locations using public transport
+- ⌛ **Station Search**: Browse and search all metro and bus stations (Partial support so far, cannot view closest station or lines passing by said station)
+- ⚫ **Live Arrivals**: View real-time arrival information for metro and buses
+- ✅ **Interactive Map**: View stations and routes with OpenStreetMap and MapTiler
+- ✅ **GPS Location**: Use your current location as starting point
+- ⚫ **Multilingual**: Supports English and Arabic (العربية) with language-specific map labels
 
 ## Prerequisites
 
@@ -21,23 +21,11 @@ An Android mobile application for Riyadh public transport, built in Java. This a
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/WhakEi/Riyadh-Transport.git
-cd Riyadh-Transport/android-app
+git clone https://github.com/WhakEi/Riyadh-Transport-Mobile.git
+cd Riyadh-Transport-Mobile
 ```
 
-### 2. Configure Backend Server URL
-
-Open `app/src/main/java/com/riyadhtransport/api/ApiClient.java` and update the `BASE_URL`:
-
-```java
-// For local development (use your computer's IP address)
-private static final String BASE_URL = "http://192.168.1.XXX:5000/";
-
-// For production
-private static final String BASE_URL = "https://your-server.com/";
-```
-
-### 3. Build and Run
+### 2. Build and Run
 
 1. Open the project in Android Studio
 2. Wait for Gradle sync to complete
@@ -47,7 +35,7 @@ private static final String BASE_URL = "https://your-server.com/";
 ## Project Structure
 
 ```
-android-app/
+Riyadh-Transport-Mobile/
 ├── app/
 │   ├── src/
 │   │   └── main/
@@ -70,7 +58,7 @@ android-app/
 
 ## API Integration
 
-The app communicates with the Flask backend server using the following endpoints:
+The app will communicate with the Flask backend server using the following endpoints:
 
 - `GET /api/stations` - Get all stations
 - `POST /nearbystations` - Find nearby stations
@@ -128,15 +116,11 @@ Note: For local backend testing on emulator, use `http://10.0.2.2:5000/` as the 
 - Route favorites and history
 - Push notifications for service alerts
 - Dark mode support
-- Widget for quick access
+- Server-side vector map rendering
 
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is part of the Riyadh Transport initiative to make public transport easier in Riyadh.
 
 ## Support
 
