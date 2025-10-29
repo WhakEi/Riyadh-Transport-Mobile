@@ -10,6 +10,7 @@ An Android mobile application for Riyadh public transport, built in Java. This a
 - ✅ **Interactive Map**: View stations and routes with OpenStreetMap and MapTiler
 - ✅ **GPS Location**: Use your current location as starting point
 - ⚫ **Multilingual**: Supports English and Arabic (العربية) with language-specific map labels
+- ⚫ **iOS Support**: Native version that runs on iOS with ability to use Apple Maps or MapTiler depending on what the user chooses
 
 ## Prerequisites
 
