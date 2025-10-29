@@ -17,7 +17,10 @@ An Android mobile application for Riyadh public transport, built in Java. This a
 - Android Studio Arctic Fox or later
 - Android SDK 21 (Lollipop) or higher
 
-## Setup Instructions
+## Installation
+You may install the Pre-Built APK in [Releases](https://github.com/WhakEi/Riyadh-Transport-Mobile/releases/tag/Alpha)
+
+## Build from Source
 
 ### 1. Clone the Repository
 
