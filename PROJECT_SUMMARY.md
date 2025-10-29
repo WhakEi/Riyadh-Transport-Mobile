@@ -16,7 +16,7 @@ A complete Android mobile application in Java that provides public transport inf
 ## File Structure
 
 ```
-android-app/
+Riyadh-Transport-Mobile/
 ├── README.md                          # User-facing documentation
 ├── DEVELOPER_GUIDE.md                 # Technical documentation
 ├── .gitignore                         # Git ignore rules
@@ -81,7 +81,6 @@ android-app/
    - User location tracking
    - Map controls (zoom, compass)
    - **Language-specific map labels** (Arabic/English based on app language)
-   - No API key required
    - Same map provider as web frontend
 
 2. **Route Planning**
@@ -92,21 +91,9 @@ android-app/
 
 3. **Station Search**
    - Complete station list
-   - Real-time search filtering
    - Metro and bus stations
-   - Click for details
 
-4. **Lines Browsing**
-   - Metro lines (1-6) with colors
-   - Bus lines list
-   - Line details view
-
-5. **Multilingual Support**
-   - English (default)
-   - Arabic (العربية)
-   - RTL layout support
-
-6. **Location Services**
+4. **Location Services**
    - GPS permission handling
    - Current location detection
    - Distance calculations
@@ -161,18 +148,6 @@ The app includes complete API service definitions for:
 3. Android SDK
 4. Access to backend server
 
-## Configuration Needed
-
-Before running the app:
-
-1. **Backend Server URL**
-   - Edit `api/ApiClient.java`
-   - Update `BASE_URL` to your server
-
-3. **Network Configuration**
-   - For emulator: Use `10.0.2.2:5000`
-   - For device: Use actual server IP/domain
-
 ## Testing Status
 
 ### ✅ Implemented & Testable
@@ -196,7 +171,6 @@ Before running the app:
 - Favorites/bookmarks
 - Route history
 - Dark mode
-- Widgets
 
 ## Code Quality
 
