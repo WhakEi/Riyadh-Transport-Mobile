@@ -33,7 +33,7 @@ public class StationListAdapter extends RecyclerView.Adapter<StationListAdapter.
     @Override
     public StationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_station_list, parent, false);
+                .inflate(R.layout.item_station, parent, false);
         return new StationViewHolder(view);
     }
 
