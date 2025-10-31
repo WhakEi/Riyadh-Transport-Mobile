@@ -68,9 +68,10 @@ public class ApiClient {
     }
     
     public static TransportApiService getApiService() {
-        if (apiService == null) {
-            apiService = getClient().create(TransportApiService.class);
-        }
+        // Always recreate the client to ensure locale changes are picked up
+        retrofit = null;
+        apiService = null;
+        apiService = getClient().create(TransportApiService.class);
         return apiService;
     }
 

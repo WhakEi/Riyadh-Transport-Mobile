@@ -17,7 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/start_location"
-        app:boxBackgroundMode="outline">
+        app:boxBackgroundMode="outline"
+        app:startIconDrawable="@android:drawable/ic_menu_search">
 
         <AutoCompleteTextView
             android:id="@+id/start_input"
@@ -34,7 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="@string/end_location"
-        app:boxBackgroundMode="outline">
+        app:boxBackgroundMode="outline"
+        app:startIconDrawable="@android:drawable/ic_menu_search">
 
         <AutoCompleteTextView
             android:id="@+id/end_input"

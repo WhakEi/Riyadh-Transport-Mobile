@@ -64,6 +64,11 @@
     <string name="error_network">Network error. Please check your connection.</string>
     <string name="error_location">Unable to get your location</string>
     <string name="error_permission">Location permission required</string>
+    <string name="error_select_locations">Please select both start and end locations</string>
+    <string name="error_invalid_locations">Invalid location coordinates</string>
+
+    <!-- Location -->
+    <string name="my_location">My Location</string>
     
     <!-- Settings -->
     <string name="english">English</string>
@@ -83,9 +88,17 @@
     <!-- Distance -->
     <string name="meters">m</string>
     <string name="kilometers">km</string>
+
+    <!-- Station Lines -->
+    <string name="lines_passing_through">Lines passing through this station</string>
+    <string name="station_lines">Station Lines</string>
+
+    <!-- Search -->
+    <string name="search_location">Search for a location...</string>
+
     <!-- About -->
     <string name="about_app_text">Welcome to RPTP Mobile, an open-source mobile app providing comprehensive public transportation information for Riyadh\'s metro and bus systems. Find routes, view nearby stations, and navigate the city with ease.</string>
-    <string name="app_version">Version 0.3.6</string>
+    <string name="app_version">Version 0.4.2</string>
 
     <!-- Route Instructions -->
     <string name="take_bus">Take Bus %1$s and disembark at %2$s</string>
@@ -95,4 +108,8 @@
     <string name="bus_stop">Bus stop</string>
     <string name="metro_station">Metro station</string>
     <string name="min_walk">min walk</string>
+    <string name="your_destination">your destination</string>
+    <string name="next_stop">next stop</string>
+    <string name="current_location">current location</string>
+    <string name="destination">destination</string>
 </resources>

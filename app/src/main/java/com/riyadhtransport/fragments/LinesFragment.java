@@ -1,6 +1,7 @@
 package com.riyadhtransport.fragments;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonObject;
+import com.riyadhtransport.LineStationsActivity;
 import com.riyadhtransport.R;
 import com.riyadhtransport.adapters.LineAdapter;
 import com.riyadhtransport.api.ApiClient;
@@ -224,41 +226,26 @@ public class LinesFragment extends Fragment {
                     List<String> stations = new ArrayList<>();
                     lineData.getAsJsonArray(selectedDirection).forEach(element ->
                             stations.add(element.getAsString()));
-                    showStationsList(line, stations);
+                    
+                    // Open activity with direction info
+                    Intent intent = new Intent(requireContext(), LineStationsActivity.class);
+                    intent.putExtra("line_id", line.getId());
+                    intent.putExtra("line_name", line.getName());
+                    intent.putExtra("line_type", line.getType());
+                    intent.putExtra("direction", selectedDirection);
+                    intent.putStringArrayListExtra("stations", new ArrayList<>(stations));
+                    startActivity(intent);
                 })
                 .show();
     }
 
     private void showStationsList(Line line, List<String> stations) {
-        // Create dialog with list of stations
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle(line.getName());
-
-        // Create view for stations list
-        LinearLayout layout = new LinearLayout(requireContext());
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setPadding(32, 16, 32, 16);
-
-        for (int i = 0; i < stations.size(); i++) {
-            TextView stationView = new TextView(requireContext());
-            stationView.setText((i + 1) + ". " + stations.get(i));
-            stationView.setTextSize(16);
-            stationView.setPadding(16, 12, 16, 12);
-
-            // Set color based on line type
-            if (line.isMetro()) {
-                int color = LineColorHelper.getMetroLineColor(requireContext(), line.getId());
-                stationView.setTextColor(color);
-            } else {
-                int color = LineColorHelper.getBusLineColor(requireContext());
-                stationView.setTextColor(color);
-            }
-
-            layout.addView(stationView);
-        }
-
-        builder.setView(layout);
-        builder.setPositiveButton(android.R.string.ok, null);
-        builder.show();
+        // Open dedicated activity to show stations list
+        Intent intent = new Intent(requireContext(), LineStationsActivity.class);
+        intent.putExtra("line_id", line.getId());
+        intent.putExtra("line_name", line.getName());
+        intent.putExtra("line_type", line.getType());
+        intent.putStringArrayListExtra("stations", new ArrayList<>(stations));
+        startActivity(intent);
     }
 }

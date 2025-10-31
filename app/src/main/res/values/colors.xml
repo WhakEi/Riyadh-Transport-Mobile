@@ -1,7 +1,7 @@
 <resources>
     <!-- Primary colors -->
-    <color name="colorPrimary">#1976D2</color>
-    <color name="colorPrimaryDark">#1565C0</color>
+    <color name="colorPrimary">#1aad00</color>
+    <color name="colorPrimaryDark">#106d00</color>
     <color name="colorAccent">#FF4081</color>
     
     <!-- Metro Line Colors (matching frontend) -->

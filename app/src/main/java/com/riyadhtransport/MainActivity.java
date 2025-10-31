@@ -79,9 +79,13 @@ public class MainActivity extends AppCompatActivity {
         bottomSheetBehavior.setPeekHeight(500); // Default peek height
         bottomSheetBehavior.setHideable(false); // Don't allow hiding
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        // Allow dragging to fully expand
+        // Allow dragging to fully expand - pull tab can reach bottom of screen
         bottomSheetBehavior.setFitToContents(false);
         bottomSheetBehavior.setHalfExpandedRatio(0.5f);
+        // Set expanded offset to allow pull tab to reach screen bottom
+        // The offset is the distance from top when fully expanded
+        // Setting to a small value (like the pull tab height ~20dp) allows maximum expansion
+        bottomSheetBehavior.setExpandedOffset(20);
 
         // Setup map
         setupMap();

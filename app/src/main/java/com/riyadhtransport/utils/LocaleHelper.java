@@ -13,7 +13,12 @@ public class LocaleHelper {
     public static boolean isArabic(Context context) {
         Resources resources = context.getResources();
         Configuration config = resources.getConfiguration();
-        Locale locale = config.getLocales().get(0);
+        Locale locale;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            locale = config.getLocales().get(0);
+        } else {
+            locale = config.locale;
+        }
         return locale.getLanguage().equals("ar");
     }
 

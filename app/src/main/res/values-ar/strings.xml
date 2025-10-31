@@ -64,6 +64,11 @@
     <string name="error_network">خطأ في الشبكة. يرجى التحقق من الاتصال.</string>
     <string name="error_location">تعذر الحصول على موقعك</string>
     <string name="error_permission">مطلوب إذن الموقع</string>
+    <string name="error_select_locations">يرجى اختيار موقع البداية والوجهة</string>
+    <string name="error_invalid_locations">إحداثيات الموقع غير صالحة</string>
+
+    <!-- Location -->
+    <string name="my_location">موقعي</string>
     
     <!-- Settings -->
     <string name="english">English</string>
@@ -83,9 +88,17 @@
     <!-- Distance -->
     <string name="meters">م</string>
     <string name="kilometers">كم</string>
+
+    <!-- Station Lines -->
+    <string name="lines_passing_through">الخطوط التي تمر بهذه المحطة</string>
+    <string name="station_lines">خطوط المحطة</string>
+
+    <!-- Search -->
+    <string name="search_location">البحث عن موقع...</string>
+
     <!-- About -->
     <string name="about_app_text">السلام عليكم ولرحمة الله وبركاته.  أهلاً بكم في تطبيق RPTP للهاتف المحمول, تطبيق مفتوح المصدر يوفر معلومات شاملة عن النقل العام لأنظمة القطار والحافلات في الرياض. اعثر على المسارات، وشاهد المحطات القريبة، وتنقل في المدينة بسهولة.</string>
-    <string name="app_version">الإصدار 0.3.6</string>
+    <string name="app_version">الإصدار 0.4.2</string>
 
     <!-- Route Instructions -->
     <string name="take_bus">اتجه على متن حافلة رقم %1$s وانزل في %2$s</string>
@@ -95,4 +108,8 @@
     <string name="bus_stop">محطة حافلات</string>
     <string name="metro_station">محطة مترو</string>
     <string name="min_walk">دقيقة مشي</string>
+    <string name="your_destination">وجهتك</string>
+    <string name="next_stop">المحطة التالية</string>
+    <string name="current_location">الموقع الحالي</string>
+    <string name="destination">الوجهة</string>
 </resources>

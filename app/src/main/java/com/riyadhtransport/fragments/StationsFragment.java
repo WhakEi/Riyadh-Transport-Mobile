@@ -1,5 +1,6 @@
 package com.riyadhtransport.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,9 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.riyadhtransport.R;
+import com.riyadhtransport.StationLinesActivity;
 import com.riyadhtransport.adapters.StationAdapter;
 import com.riyadhtransport.api.ApiClient;
 import com.riyadhtransport.models.Station;
+import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,11 +56,8 @@ public class StationsFragment extends Fragment {
         
         // Setup RecyclerView
         stationAdapter = new StationAdapter(station -> {
-            // Handle station click - show details
-            Toast.makeText(requireContext(), 
-                    "Station: " + station.getDisplayName(), 
-                    Toast.LENGTH_SHORT).show();
-            // TODO: Navigate to StationDetailsActivity
+            // Handle station click - show lines passing through this station
+            searchStationLines(station.getDisplayName());
         });
         
         stationsRecycler.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -131,6 +131,67 @@ public class StationsFragment extends Fragment {
             public void onFailure(@NonNull Call<List<Station>> call, @NonNull Throwable t) {
                 Toast.makeText(requireContext(), 
                         getString(R.string.error_network) + ": " + t.getMessage(), 
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    
+    private void searchStationLines(String stationName) {
+        Map<String, String> requestBody = new HashMap<>();
+        requestBody.put("station_name", stationName);
+        
+        ApiClient.getApiService().searchStation(requestBody).enqueue(new Callback<Map<String, Object>>() {
+            @Override
+            public void onResponse(@NonNull Call<Map<String, Object>> call,
+                                   @NonNull Response<Map<String, Object>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Map<String, Object> data = response.body();
+                    
+                    // Extract lines from response
+                    List<String> metroLines = new ArrayList<>();
+                    List<String> busLines = new ArrayList<>();
+                    
+                    if (data.containsKey("metro_lines")) {
+                        Object metroObj = data.get("metro_lines");
+                        if (metroObj instanceof List) {
+                            List<?> rawList = (List<?>) metroObj;
+                            for (Object item : rawList) {
+                                if (item instanceof String) {
+                                    metroLines.add((String) item);
+                                }
+                            }
+                        }
+                    }
+                    
+                    if (data.containsKey("bus_lines")) {
+                        Object busObj = data.get("bus_lines");
+                        if (busObj instanceof List) {
+                            List<?> rawList = (List<?>) busObj;
+                            for (Object item : rawList) {
+                                if (item instanceof String) {
+                                    busLines.add((String) item);
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Open activity to show lines passing through this station
+                    Intent intent = new Intent(requireContext(), StationLinesActivity.class);
+                    intent.putExtra("station_name", stationName);
+                    intent.putStringArrayListExtra("metro_lines", new ArrayList<>(metroLines));
+                    intent.putStringArrayListExtra("bus_lines", new ArrayList<>(busLines));
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(requireContext(),
+                            R.string.error_network,
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+            
+            @Override
+            public void onFailure(@NonNull Call<Map<String, Object>> call, @NonNull Throwable t) {
+                Toast.makeText(requireContext(),
+                        getString(R.string.error_network) + ": " + t.getMessage(),
                         Toast.LENGTH_SHORT).show();
             }
         });
