@@ -83,6 +83,11 @@
     <!-- Distance -->
     <string name="meters">m</string>
     <string name="kilometers">km</string>
+    
+    <!-- Station Lines -->
+    <string name="lines_passing_through">Lines passing through this station</string>
+    <string name="station_lines">Station Lines</string>
+    
     <!-- About -->
     <string name="about_app_text">Welcome to RPTP Mobile, an open-source mobile app providing comprehensive public transportation information for Riyadh\'s metro and bus systems. Find routes, view nearby stations, and navigate the city with ease.</string>
     <string name="app_version">Version 0.3.6</string>

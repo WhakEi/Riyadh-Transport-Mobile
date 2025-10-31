@@ -45,6 +45,16 @@
             android:name=".RouteDetailsActivity"
             android:label="@string/route_details"
             android:parentActivityName=".MainActivity" />
+            
+        <activity
+            android:name=".LineStationsActivity"
+            android:label="@string/line_details"
+            android:parentActivityName=".MainActivity" />
+            
+        <activity
+            android:name=".StationLinesActivity"
+            android:label="@string/station_lines"
+            android:parentActivityName=".LineStationsActivity" />
     </application>
 
 </manifest>
