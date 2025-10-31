@@ -5,20 +5,16 @@ An Android mobile application for Riyadh public transport, built in Java. This a
 ## Feature Checklist
 
 - ✅ **Route Planning**: Find routes between locations using public transport
-- ⌛ **Station Search**: Browse and search all metro and bus stations (Partial support so far, cannot view lines passing by selected station)
+- ✅ **Station Search**: Browse and search all metro and bus stations
 - ⚫ **Live Arrivals**: View real-time arrival information for metro and buses
 - ✅ **Interactive Map**: View stations and routes with OpenStreetMap and MapTiler
 - ✅ **GPS Location**: Use your current location as starting point
 - ⌛ **Multilingual**: Supports English and Arabic (العربية) with language-specific map labels (Partial support, some text may still appear in English)
 - ⚫ **iOS Support**: Native version that runs on iOS with ability to use Apple Maps or MapTiler depending on what the user chooses
 
-## Prerequisites
-
-- Android Studio Arctic Fox or later
-- Android SDK 21 (Lollipop) or higher
 
 ## Installation
-You may install the Pre-Built APK in [Releases](https://github.com/WhakEi/Riyadh-Transport-Mobile/releases)
+You may install the Pre-Built APK in [Releases](https://github.com/WhakEi/Riyadh-Transport-Mobile/releases). A device running Android 7.0 (Nougat) or higher is required
 
 ## Build from Source
 
@@ -30,6 +26,9 @@ cd Riyadh-Transport-Mobile
 ```
 
 ### 2. Build and Run
+**Prerequisites:**
+- Android Studio Arctic Fox or later
+- Gradle 8.3.6 or higher
 
 1. Open the project in Android Studio
 2. Wait for Gradle sync to complete
