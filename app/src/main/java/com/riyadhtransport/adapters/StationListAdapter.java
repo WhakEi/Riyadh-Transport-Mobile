@@ -49,14 +49,11 @@ public class StationListAdapter extends RecyclerView.Adapter<StationListAdapter.
     }
 
     class StationViewHolder extends RecyclerView.ViewHolder {
-        private TextView stationNumber; // You can rename this variable if you want
         private TextView stationName;
 
         StationViewHolder(@NonNull View itemView) {
             super(itemView);
-            // Use the IDs from item_station_list.xml
-            stationNumber = itemView.findViewById(R.id.result_description);
-            stationName = itemView.findViewById(R.id.result_name);
+            stationName = itemView.findViewById(R.id.station_name);
 
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
@@ -67,7 +64,6 @@ public class StationListAdapter extends RecyclerView.Adapter<StationListAdapter.
         }
 
         void bind(String station, int number) {
-            stationNumber.setText(String.valueOf(number));
             stationName.setText(station);
         }
     }

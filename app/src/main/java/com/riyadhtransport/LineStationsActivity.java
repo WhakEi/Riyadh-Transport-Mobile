@@ -174,7 +174,7 @@ public class LineStationsActivity extends AppCompatActivity {
     
     private void searchStation(String stationName) {
         Map<String, String> requestBody = new HashMap<>();
-        requestBody.put("name", stationName);
+        requestBody.put("station_name", stationName);
         
         ApiClient.getApiService().searchStation(requestBody).enqueue(new Callback<Map<String, Object>>() {
             @Override

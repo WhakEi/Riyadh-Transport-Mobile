@@ -8,23 +8,11 @@
     android:clickable="true"
     android:focusable="true">
 
-    <!-- Station Number -->
-    <TextView
-        android:id="@+id/station_number"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:textColor="@color/colorPrimary" />
-
     <!-- Station Name -->
     <TextView
         android:id="@+id/station_name"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginStart="16dp"
         android:textSize="16sp"
         android:textColor="@android:color/black" />
 
