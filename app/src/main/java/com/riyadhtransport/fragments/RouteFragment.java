@@ -371,9 +371,13 @@ public class RouteFragment extends Fragment {
                 if (segment.getFrom() != null) {
                     if (segment.getFrom() instanceof Map) {
                         Map<String, Object> fromMap = (Map<String, Object>) segment.getFrom();
-                        double lat = ((Number) fromMap.get("lat")).doubleValue();
-                        double lng = ((Number) fromMap.get("lng")).doubleValue();
-                        points.add(new GeoPoint(lat, lng));
+                        Object latObj = fromMap.get("lat");
+                        Object lngObj = fromMap.get("lng");
+                        if (latObj instanceof Number && lngObj instanceof Number) {
+                            double lat = ((Number) latObj).doubleValue();
+                            double lng = ((Number) lngObj).doubleValue();
+                            points.add(new GeoPoint(lat, lng));
+                        }
                     } else if (segment.getFrom() instanceof String) {
                         // It's a station name
                         Station station = stationMap.get((String) segment.getFrom());
@@ -386,9 +390,13 @@ public class RouteFragment extends Fragment {
                 if (segment.getTo() != null) {
                     if (segment.getTo() instanceof Map) {
                         Map<String, Object> toMap = (Map<String, Object>) segment.getTo();
-                        double lat = ((Number) toMap.get("lat")).doubleValue();
-                        double lng = ((Number) toMap.get("lng")).doubleValue();
-                        points.add(new GeoPoint(lat, lng));
+                        Object latObj = toMap.get("lat");
+                        Object lngObj = toMap.get("lng");
+                        if (latObj instanceof Number && lngObj instanceof Number) {
+                            double lat = ((Number) latObj).doubleValue();
+                            double lng = ((Number) lngObj).doubleValue();
+                            points.add(new GeoPoint(lat, lng));
+                        }
                     } else if (segment.getTo() instanceof String) {
                         // It's a station name
                         Station station = stationMap.get((String) segment.getTo());

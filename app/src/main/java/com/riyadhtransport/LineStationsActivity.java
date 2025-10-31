@@ -190,14 +190,24 @@ public class LineStationsActivity extends AppCompatActivity {
                     if (data.containsKey("metro_lines")) {
                         Object metroObj = data.get("metro_lines");
                         if (metroObj instanceof List) {
-                            metroLines = (List<String>) metroObj;
+                            List<?> rawList = (List<?>) metroObj;
+                            for (Object item : rawList) {
+                                if (item instanceof String) {
+                                    metroLines.add((String) item);
+                                }
+                            }
                         }
                     }
                     
                     if (data.containsKey("bus_lines")) {
                         Object busObj = data.get("bus_lines");
                         if (busObj instanceof List) {
-                            busLines = (List<String>) busObj;
+                            List<?> rawList = (List<?>) busObj;
+                            for (Object item : rawList) {
+                                if (item instanceof String) {
+                                    busLines.add((String) item);
+                                }
+                            }
                         }
                     }
                     

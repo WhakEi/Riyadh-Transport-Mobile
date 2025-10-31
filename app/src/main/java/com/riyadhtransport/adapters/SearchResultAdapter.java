@@ -73,12 +73,18 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             name.setText(result.getName());
             description.setText(result.getDescription());
             
-            // Set icon based on type
+            // Set icon and tint based on type
             if (result.isStation()) {
                 icon.setImageResource(R.drawable.ic_metro);
             } else {
                 icon.setImageResource(android.R.drawable.ic_menu_mylocation);
             }
+            
+            // Set tint programmatically for compatibility
+            int color = androidx.core.content.ContextCompat.getColor(
+                    itemView.getContext(), R.color.colorPrimary);
+            androidx.core.widget.ImageViewCompat.setImageTintList(icon,
+                    android.content.res.ColorStateList.valueOf(color));
         }
     }
 }

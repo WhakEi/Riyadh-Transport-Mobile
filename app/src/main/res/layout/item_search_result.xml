@@ -15,7 +15,7 @@
         android:layout_height="24dp"
         android:layout_gravity="center_vertical"
         android:src="@drawable/ic_metro"
-        android:tint="@color/colorPrimary" />
+        android:importantForAccessibility="no" />
 
     <!-- Text Container -->
     <LinearLayout

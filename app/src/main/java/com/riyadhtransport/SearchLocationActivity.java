@@ -173,13 +173,18 @@ public class SearchLocationActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     // Add Nominatim results
                     for (NominatimResult nominatim : response.body()) {
-                        SearchResult result = new SearchResult();
-                        result.setName(nominatim.getDisplayName());
-                        result.setDescription(nominatim.getType());
-                        result.setLatitude(nominatim.getLatitudeAsDouble());
-                        result.setLongitude(nominatim.getLongitudeAsDouble());
-                        result.setStation(false);
-                        existingResults.add(result);
+                        // Ensure we have valid data before creating result
+                        String displayName = nominatim.getDisplayName();
+                        String type = nominatim.getType();
+                        if (displayName != null && !displayName.isEmpty()) {
+                            SearchResult result = new SearchResult();
+                            result.setName(displayName);
+                            result.setDescription(type != null ? type : "Location");
+                            result.setLatitude(nominatim.getLatitudeAsDouble());
+                            result.setLongitude(nominatim.getLongitudeAsDouble());
+                            result.setStation(false);
+                            existingResults.add(result);
+                        }
                     }
                 }
                 
