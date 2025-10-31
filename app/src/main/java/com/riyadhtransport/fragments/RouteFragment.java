@@ -493,13 +493,57 @@ public class RouteFragment extends Fragment {
     }
 
     private void addSegmentPoints(RouteSegment segment, List<GeoPoint> points) {
-        // For now, we'll need to get coordinates from stations
-        // This is a simplified version - you may need to enhance based on your data structure
-        if (segment.getStations() != null && !segment.getStations().isEmpty()) {
-            for (String stationName : segment.getStations()) {
-                Station station = stationMap.get(stationName);
-                if (station != null) {
-                    points.add(new GeoPoint(station.getLatitude(), station.getLongitude()));
+        if (segment.isWalking()) {
+            // For walking segments, use from/to coordinates
+            try {
+                if (segment.getFrom() != null) {
+                    if (segment.getFrom() instanceof Map) {
+                        Map<String, Object> fromMap = (Map<String, Object>) segment.getFrom();
+                        double lat = ((Number) fromMap.get("lat")).doubleValue();
+                        double lng = ((Number) fromMap.get("lng")).doubleValue();
+                        points.add(new GeoPoint(lat, lng));
+                    } else if (segment.getFrom() instanceof String) {
+                        // It's a station name
+                        Station station = stationMap.get((String) segment.getFrom());
+                        if (station != null) {
+                            points.add(new GeoPoint(station.getLatitude(), station.getLongitude()));
+                        }
+                    }
+                }
+                
+                if (segment.getTo() != null) {
+                    if (segment.getTo() instanceof Map) {
+                        Map<String, Object> toMap = (Map<String, Object>) segment.getTo();
+                        double lat = ((Number) toMap.get("lat")).doubleValue();
+                        double lng = ((Number) toMap.get("lng")).doubleValue();
+                        points.add(new GeoPoint(lat, lng));
+                    } else if (segment.getTo() instanceof String) {
+                        // It's a station name
+                        Station station = stationMap.get((String) segment.getTo());
+                        if (station != null) {
+                            points.add(new GeoPoint(station.getLatitude(), station.getLongitude()));
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                // If parsing fails, fall back to stations list if available
+                if (segment.getStations() != null && !segment.getStations().isEmpty()) {
+                    for (String stationName : segment.getStations()) {
+                        Station station = stationMap.get(stationName);
+                        if (station != null) {
+                            points.add(new GeoPoint(station.getLatitude(), station.getLongitude()));
+                        }
+                    }
+                }
+            }
+        } else {
+            // For metro/bus segments, use stations list
+            if (segment.getStations() != null && !segment.getStations().isEmpty()) {
+                for (String stationName : segment.getStations()) {
+                    Station station = stationMap.get(stationName);
+                    if (station != null) {
+                        points.add(new GeoPoint(station.getLatitude(), station.getLongitude()));
+                    }
                 }
             }
         }

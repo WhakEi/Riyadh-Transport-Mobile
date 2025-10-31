@@ -95,4 +95,8 @@
     <string name="bus_stop">محطة حافلات</string>
     <string name="metro_station">محطة مترو</string>
     <string name="min_walk">دقيقة مشي</string>
+    <string name="your_destination">وجهتك</string>
+    <string name="next_stop">المحطة التالية</string>
+    <string name="current_location">الموقع الحالي</string>
+    <string name="destination">الوجهة</string>
 </resources>

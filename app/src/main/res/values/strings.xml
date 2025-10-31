@@ -95,4 +95,8 @@
     <string name="bus_stop">Bus stop</string>
     <string name="metro_station">Metro station</string>
     <string name="min_walk">min walk</string>
+    <string name="your_destination">your destination</string>
+    <string name="next_stop">next stop</string>
+    <string name="current_location">current location</string>
+    <string name="destination">destination</string>
 </resources>

@@ -131,7 +131,7 @@ public class RouteSegmentAdapter extends RecyclerView.Adapter<RouteSegmentAdapte
 
         private String getDestinationName(RouteSegment segment, boolean isLastSegment) {
             if (isLastSegment) {
-                return "your destination";
+                return itemView.getContext().getString(R.string.your_destination);
             }
 
             List<String> stations = segment.getStations();
@@ -139,7 +139,7 @@ public class RouteSegmentAdapter extends RecyclerView.Adapter<RouteSegmentAdapte
                 return stations.get(stations.size() - 1);
             }
 
-            return "next stop";
+            return itemView.getContext().getString(R.string.next_stop);
         }
 
         private String getStartStation(RouteSegment segment) {
@@ -147,7 +147,7 @@ public class RouteSegmentAdapter extends RecyclerView.Adapter<RouteSegmentAdapte
             if (stations != null && !stations.isEmpty()) {
                 return stations.get(0);
             }
-            return "current location";
+            return itemView.getContext().getString(R.string.current_location);
         }
 
         private String getDestinationStation(RouteSegment segment) {
@@ -155,7 +155,7 @@ public class RouteSegmentAdapter extends RecyclerView.Adapter<RouteSegmentAdapte
             if (stations != null && !stations.isEmpty()) {
                 return stations.get(stations.size() - 1);
             }
-            return "destination";
+            return itemView.getContext().getString(R.string.destination);
         }
     }
 }
