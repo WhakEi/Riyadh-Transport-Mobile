@@ -4,24 +4,7 @@
             "outputFile": "com.riyadhtransport.app-mergeDebugResources-34:/values-mk/values-mk.xml",
             "map": [
                 {
-                    "source": "/home/jihad/.gradle/caches/transforms-4/f621b32c95aa16415dc3152441a78fea/transformed/jetified-play-services-basement-18.1.0/res/values-mk/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "195",
-                        "endColumns": "132",
-                        "endOffsets": "327"
-                    },
-                    "to": {
-                        "startLines": "49",
-                        "startColumns": "4",
-                        "startOffsets": "4791",
-                        "endColumns": "136",
-                        "endOffsets": "4923"
-                    }
-                },
-                {
-                    "source": "/home/jihad/.gradle/caches/transforms-4/dd9d6c8aa0b9b93cf8d27be101e4af4d/transformed/appcompat-1.6.1/res/values-mk/values-mk.xml",
+                    "source": "/home/jihad/.gradle/caches/transforms-4/1d382a970569d6f4eddada36cac67b49/transformed/appcompat-1.6.1/res/values-mk/values-mk.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -38,7 +21,41 @@
                     }
                 },
                 {
-                    "source": "/home/jihad/.gradle/caches/transforms-4/34edadc5304545bc9b9ecd30f3b22e45/transformed/material-1.10.0/res/values-mk/values-mk.xml",
+                    "source": "/home/jihad/.gradle/caches/transforms-4/5f98ecc62db4e39cd7b216b67ea60635/transformed/jetified-play-services-base-18.1.0/res/values-mk/values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+                        "startOffsets": "193,296,453,582,688,829,958,1074,1180,1333,1436,1598,1727,1876,2031,2096,2156",
+                        "endColumns": "102,156,128,105,140,128,115,105,152,102,161,128,148,154,64,59,74",
+                        "endOffsets": "295,452,581,687,828,957,1073,1179,1332,1435,1597,1726,1875,2030,2095,2155,2230"
+                    },
+                    "to": {
+                        "startLines": "41,42,43,44,45,46,47,48,50,51,52,53,54,55,56,57,58",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "3772,3879,4040,4173,4283,4428,4561,4681,4928,5085,5192,5358,5491,5644,5803,5872,5936",
+                        "endColumns": "106,160,132,109,144,132,119,109,156,106,165,132,152,158,68,63,78",
+                        "endOffsets": "3874,4035,4168,4278,4423,4556,4676,4786,5080,5187,5353,5486,5639,5798,5867,5931,6010"
+                    }
+                },
+                {
+                    "source": "/home/jihad/.gradle/caches/transforms-4/0b1543d70f5c0b4fae2196a7dba9cb3e/transformed/core-1.9.0/res/values-mk/values-mk.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "120",
+                        "startColumns": "4",
+                        "startOffsets": "10922",
+                        "endColumns": "100",
+                        "endOffsets": "11018"
+                    }
+                },
+                {
+                    "source": "/home/jihad/.gradle/caches/transforms-4/98a1eb1696bcd45eb8fba03d4b7ad292/transformed/material-1.10.0/res/values-mk/values-mk.xml",
                     "from": {
                         "startLines": "2,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -57,37 +74,20 @@
                     }
                 },
                 {
-                    "source": "/home/jihad/.gradle/caches/transforms-4/766f3bb77a9602d5b18720e866ffb26d/transformed/core-1.9.0/res/values-mk/values-mk.xml",
+                    "source": "/home/jihad/.gradle/caches/transforms-4/128756a056f5b7befe495d05145f7c89/transformed/jetified-play-services-basement-18.1.0/res/values-mk/values.xml",
                     "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "195",
+                        "endColumns": "132",
+                        "endOffsets": "327"
                     },
                     "to": {
-                        "startLines": "120",
+                        "startLines": "49",
                         "startColumns": "4",
-                        "startOffsets": "10922",
-                        "endColumns": "100",
-                        "endOffsets": "11018"
-                    }
-                },
-                {
-                    "source": "/home/jihad/.gradle/caches/transforms-4/3d3cb762acf5bfb3401e01d34c22b786/transformed/jetified-play-services-base-18.1.0/res/values-mk/values.xml",
-                    "from": {
-                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
-                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
-                        "startOffsets": "193,296,453,582,688,829,958,1074,1180,1333,1436,1598,1727,1876,2031,2096,2156",
-                        "endColumns": "102,156,128,105,140,128,115,105,152,102,161,128,148,154,64,59,74",
-                        "endOffsets": "295,452,581,687,828,957,1073,1179,1332,1435,1597,1726,1875,2030,2095,2155,2230"
-                    },
-                    "to": {
-                        "startLines": "41,42,43,44,45,46,47,48,50,51,52,53,54,55,56,57,58",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "3772,3879,4040,4173,4283,4428,4561,4681,4928,5085,5192,5358,5491,5644,5803,5872,5936",
-                        "endColumns": "106,160,132,109,144,132,119,109,156,106,165,132,152,158,68,63,78",
-                        "endOffsets": "3874,4035,4168,4278,4423,4556,4676,4786,5080,5187,5353,5486,5639,5798,5867,5931,6010"
+                        "startOffsets": "4791",
+                        "endColumns": "136",
+                        "endOffsets": "4923"
                     }
                 }
             ]

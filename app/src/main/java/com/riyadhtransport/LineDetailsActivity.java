@@ -12,6 +12,7 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import com.google.gson.JsonObject;
 
 public class LineDetailsActivity extends AppCompatActivity {
     
@@ -50,20 +51,19 @@ public class LineDetailsActivity extends AppCompatActivity {
     }
     
     private void loadLineDetails() {
-        Map<String, String> body = new HashMap<>();
-        body.put("line", lineNumber);
+        JsonObject body = new JsonObject();
+        body.addProperty("line", lineNumber);
         
-        Call<Map<String, Object>> call;
+        Call<JsonObject> call;
         if ("metro".equalsIgnoreCase(lineType)) {
-            call = ApiClient.getApiService().getMetroLineDetails(body);
+            call = ApiClient.getApiService().viewMetro(body);
         } else {
-            call = ApiClient.getApiService().getBusLineDetails(body);
+            call = ApiClient.getApiService().viewBus(body);
         }
         
-        call.enqueue(new Callback<Map<String, Object>>() {
+        call.enqueue(new Callback<JsonObject>() {
             @Override
-            public void onResponse(Call<Map<String, Object>> call, 
-                                   Response<Map<String, Object>> response) {
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     // Handle line data
                     Toast.makeText(LineDetailsActivity.this, 
@@ -75,7 +75,7 @@ public class LineDetailsActivity extends AppCompatActivity {
             }
             
             @Override
-            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+            public void onFailure(Call<JsonObject> call, Throwable t) {
                 Toast.makeText(LineDetailsActivity.this, 
                         "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }

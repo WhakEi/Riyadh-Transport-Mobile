@@ -30,6 +30,9 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 import java.util.Locale;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.widget.NestedScrollView;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager2 viewPager;
     private FloatingActionButton fabSettings;
     private LocationHelper locationHelper;
+    private BottomSheetBehavior<NestedScrollView> bottomSheetBehavior;
 
     // Riyadh coordinates
     private static final GeoPoint RIYADH_CENTER = new GeoPoint(24.7136, 46.6753);
@@ -55,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
         org.osmdroid.config.Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         org.osmdroid.config.Configuration.getInstance().setUserAgentValue(getPackageName());
 
+        // Initialize ApiClient with context for Arabic locale detection
+        com.riyadhtransport.api.ApiClient.init(this);
+
         setContentView(R.layout.activity_main);
 
         // Initialize location helper
@@ -65,6 +72,16 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.view_page_container);
         fabSettings = findViewById(R.id.fab_settings);
         mapView = findViewById(R.id.map);
+        NestedScrollView bottomSheet = findViewById(R.id.bottom_sheet);
+
+        // Setup bottom sheet behavior to allow full expansion
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        bottomSheetBehavior.setPeekHeight(500); // Default peek height
+        bottomSheetBehavior.setHideable(false); // Don't allow hiding
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        // Allow dragging to fully expand
+        bottomSheetBehavior.setFitToContents(false);
+        bottomSheetBehavior.setHalfExpandedRatio(0.5f);
 
         // Setup map
         setupMap();

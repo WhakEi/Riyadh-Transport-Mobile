@@ -4,10 +4,6 @@
         "source": "com.riyadhtransport.app-main-38:/layout/item_line.xml"
     },
     {
-        "merged": "com.riyadhtransport.app-debug-36:/mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "com.riyadhtransport.app-main-38:/mipmap-mdpi/ic_launcher.webp"
-    },
-    {
         "merged": "com.riyadhtransport.app-debug-36:/layout_activity_main.xml.flat",
         "source": "com.riyadhtransport.app-main-38:/layout/activity_main.xml"
     },
@@ -16,52 +12,40 @@
         "source": "com.riyadhtransport.app-main-38:/layout/fragment_lines.xml"
     },
     {
-        "merged": "com.riyadhtransport.app-debug-36:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.riyadhtransport.app-main-38:/mipmap-xxhdpi/ic_launcher_round.webp"
-    },
-    {
-        "merged": "com.riyadhtransport.app-debug-36:/drawable-v24_bottom_sheet_handle.xml.flat",
-        "source": "com.riyadhtransport.app-main-38:/drawable-v24/bottom_sheet_handle.xml"
-    },
-    {
         "merged": "com.riyadhtransport.app-debug-36:/layout_item_station.xml.flat",
         "source": "com.riyadhtransport.app-main-38:/layout/item_station.xml"
+    },
+    {
+        "merged": "com.riyadhtransport.app-debug-36:/drawable-mdpi_ic_launcher.png.flat",
+        "source": "com.riyadhtransport.app-main-38:/drawable-mdpi/ic_launcher.png"
     },
     {
         "merged": "com.riyadhtransport.app-debug-36:/layout_item_arrival.xml.flat",
         "source": "com.riyadhtransport.app-main-38:/layout/item_arrival.xml"
     },
     {
-        "merged": "com.riyadhtransport.app-debug-36:/mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "com.riyadhtransport.app-main-38:/mipmap-xxhdpi/ic_launcher.webp"
-    },
-    {
-        "merged": "com.riyadhtransport.app-debug-36:/mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "com.riyadhtransport.app-main-38:/mipmap-xxxhdpi/ic_launcher.webp"
+        "merged": "com.riyadhtransport.app-debug-36:/drawable_bottom_sheet_handle.xml.flat",
+        "source": "com.riyadhtransport.app-main-38:/drawable/bottom_sheet_handle.xml"
     },
     {
         "merged": "com.riyadhtransport.app-debug-36:/layout_activity_route_details.xml.flat",
         "source": "com.riyadhtransport.app-main-38:/layout/activity_route_details.xml"
     },
     {
-        "merged": "com.riyadhtransport.app-debug-36:/drawable-v24_ic_bus.xml.flat",
-        "source": "com.riyadhtransport.app-main-38:/drawable-v24/ic_bus.xml"
-    },
-    {
         "merged": "com.riyadhtransport.app-debug-36:/layout_activity_line_details.xml.flat",
         "source": "com.riyadhtransport.app-main-38:/layout/activity_line_details.xml"
+    },
+    {
+        "merged": "com.riyadhtransport.app-debug-36:/drawable_rounded_panel_background.xml.flat",
+        "source": "com.riyadhtransport.app-main-38:/drawable/rounded_panel_background.xml"
     },
     {
         "merged": "com.riyadhtransport.app-debug-36:/layout_activity_station_details.xml.flat",
         "source": "com.riyadhtransport.app-main-38:/layout/activity_station_details.xml"
     },
     {
-        "merged": "com.riyadhtransport.app-debug-36:/mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "com.riyadhtransport.app-main-38:/mipmap-hdpi/ic_launcher.webp"
-    },
-    {
-        "merged": "com.riyadhtransport.app-debug-36:/drawable-v24_ic_walk.xml.flat",
-        "source": "com.riyadhtransport.app-main-38:/drawable-v24/ic_walk.xml"
+        "merged": "com.riyadhtransport.app-debug-36:/drawable-xhdpi_ic_launcher.png.flat",
+        "source": "com.riyadhtransport.app-main-38:/drawable-xhdpi/ic_launcher.png"
     },
     {
         "merged": "com.riyadhtransport.app-debug-36:/layout_item_route_segment.xml.flat",
@@ -72,8 +56,12 @@
         "source": "com.riyadhtransport.app-main-38:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "com.riyadhtransport.app-debug-36:/mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "com.riyadhtransport.app-main-38:/mipmap-xhdpi/ic_launcher.webp"
+        "merged": "com.riyadhtransport.app-debug-36:/drawable-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.riyadhtransport.app-main-38:/drawable-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.riyadhtransport.app-debug-36:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.riyadhtransport.app-main-38:/drawable/ic_launcher_foreground.xml"
     },
     {
         "merged": "com.riyadhtransport.app-debug-36:/drawable_ic_bus.xml.flat",
@@ -84,32 +72,20 @@
         "source": "com.riyadhtransport.app-main-38:/layout/fragment_stations.xml"
     },
     {
-        "merged": "com.riyadhtransport.app-debug-36:/mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "com.riyadhtransport.app-main-38:/mipmap-hdpi/ic_launcher_round.webp"
-    },
-    {
         "merged": "com.riyadhtransport.app-debug-36:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
         "source": "com.riyadhtransport.app-main-38:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
-        "merged": "com.riyadhtransport.app-debug-36:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.riyadhtransport.app-main-38:/mipmap-xxxhdpi/ic_launcher_round.webp"
-    },
-    {
-        "merged": "com.riyadhtransport.app-debug-36:/drawable-v24_ic_metro.xml.flat",
-        "source": "com.riyadhtransport.app-main-38:/drawable-v24/ic_metro.xml"
+        "merged": "com.riyadhtransport.app-debug-36:/drawable-hdpi_ic_launcher.png.flat",
+        "source": "com.riyadhtransport.app-main-38:/drawable-hdpi/ic_launcher.png"
     },
     {
         "merged": "com.riyadhtransport.app-debug-36:/layout_dialog_settings.xml.flat",
         "source": "com.riyadhtransport.app-main-38:/layout/dialog_settings.xml"
     },
     {
-        "merged": "com.riyadhtransport.app-debug-36:/mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "com.riyadhtransport.app-main-38:/mipmap-mdpi/ic_launcher_round.webp"
-    },
-    {
-        "merged": "com.riyadhtransport.app-debug-36:/drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
-        "source": "com.riyadhtransport.app-pngs-32:/drawable-anydpi-v24/ic_launcher_foreground.xml"
+        "merged": "com.riyadhtransport.app-debug-36:/drawable_ic_walk.xml.flat",
+        "source": "com.riyadhtransport.app-main-38:/drawable/ic_walk.xml"
     },
     {
         "merged": "com.riyadhtransport.app-debug-36:/layout_fragment_route.xml.flat",
@@ -120,11 +96,11 @@
         "source": "com.riyadhtransport.app-main-38:/drawable/ic_launcher_background.xml"
     },
     {
-        "merged": "com.riyadhtransport.app-debug-36:/mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "com.riyadhtransport.app-main-38:/mipmap-xhdpi/ic_launcher_round.webp"
-    },
-    {
         "merged": "com.riyadhtransport.app-debug-36:/drawable_ic_metro.xml.flat",
         "source": "com.riyadhtransport.app-main-38:/drawable/ic_metro.xml"
+    },
+    {
+        "merged": "com.riyadhtransport.app-debug-36:/drawable-xxhdpi_ic_launcher.png.flat",
+        "source": "com.riyadhtransport.app-main-38:/drawable-xxhdpi/ic_launcher.png"
     }
 ]

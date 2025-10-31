@@ -1362,6 +1362,7 @@ color background_floating_material_light
 color background_material_dark
 color background_material_light
 color black
+color blue_line
 color bright_foreground_disabled_material_dark
 color bright_foreground_disabled_material_light
 color bright_foreground_inverse_material_dark
@@ -3021,6 +3022,7 @@ drawable ic_bus
 drawable ic_clear_black_24
 drawable ic_clock_black_24dp
 drawable ic_keyboard_black_24dp
+drawable ic_launcher
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable ic_m3_chip_check
@@ -3122,6 +3124,7 @@ drawable osm_ic_ic_map_ortho
 drawable person
 drawable previous
 drawable round_navigation_white_48
+drawable rounded_panel_background
 drawable sharp_add_black_36
 drawable sharp_remove_black_36
 drawable test_level_drawable
@@ -3264,6 +3267,7 @@ id clip_vertical
 id clockwise
 id closest
 id collapseActionView
+id color_indicator
 id compress
 id confirm_button
 id constraint
@@ -3387,7 +3391,7 @@ id legacy
 id light
 id line1
 id line3
-id line_color_indicator
+id line_icon
 id line_info
 id line_name
 id line_type

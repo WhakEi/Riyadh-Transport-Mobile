@@ -640,6 +640,7 @@
     <color name="background_material_dark">@color/material_grey_850</color>
     <color name="background_material_light">@color/material_grey_50</color>
     <color name="black">#000000</color>
+    <color name="blue_line">#007AFF</color>
     <color name="bright_foreground_disabled_material_dark">#80ffffff</color>
     <color name="bright_foreground_disabled_material_light">#80000000</color>
     <color name="bright_foreground_inverse_material_dark">@color/bright_foreground_material_light</color>
@@ -1999,7 +2000,7 @@
     <string name="about_message">This software uses map data provided by OpenStreetMap.org</string>
     <string name="androidx_startup" translatable="false">androidx.startup</string>
     <string name="app_name">Riyadh Transport</string>
-    <string name="app_version">Version 0.2.0</string>
+    <string name="app_version">Version 0.3.5</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
     <string name="arabic">العربية</string>
     <string name="arrivals">Arrivals</string>

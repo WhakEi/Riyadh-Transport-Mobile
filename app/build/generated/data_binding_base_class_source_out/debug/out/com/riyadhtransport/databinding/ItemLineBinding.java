@@ -4,6 +4,7 @@ package com.riyadhtransport.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +21,10 @@ public final class ItemLineBinding implements ViewBinding {
   private final MaterialCardView rootView;
 
   @NonNull
-  public final View lineColorIndicator;
+  public final View colorIndicator;
+
+  @NonNull
+  public final ImageView lineIcon;
 
   @NonNull
   public final TextView lineName;
@@ -28,10 +32,11 @@ public final class ItemLineBinding implements ViewBinding {
   @NonNull
   public final TextView lineType;
 
-  private ItemLineBinding(@NonNull MaterialCardView rootView, @NonNull View lineColorIndicator,
-      @NonNull TextView lineName, @NonNull TextView lineType) {
+  private ItemLineBinding(@NonNull MaterialCardView rootView, @NonNull View colorIndicator,
+      @NonNull ImageView lineIcon, @NonNull TextView lineName, @NonNull TextView lineType) {
     this.rootView = rootView;
-    this.lineColorIndicator = lineColorIndicator;
+    this.colorIndicator = colorIndicator;
+    this.lineIcon = lineIcon;
     this.lineName = lineName;
     this.lineType = lineType;
   }
@@ -63,9 +68,15 @@ public final class ItemLineBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.line_color_indicator;
-      View lineColorIndicator = ViewBindings.findChildViewById(rootView, id);
-      if (lineColorIndicator == null) {
+      id = R.id.color_indicator;
+      View colorIndicator = ViewBindings.findChildViewById(rootView, id);
+      if (colorIndicator == null) {
+        break missingId;
+      }
+
+      id = R.id.line_icon;
+      ImageView lineIcon = ViewBindings.findChildViewById(rootView, id);
+      if (lineIcon == null) {
         break missingId;
       }
 
@@ -81,7 +92,7 @@ public final class ItemLineBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ItemLineBinding((MaterialCardView) rootView, lineColorIndicator, lineName,
+      return new ItemLineBinding((MaterialCardView) rootView, colorIndicator, lineIcon, lineName,
           lineType);
     }
     String missingId = rootView.getResources().getResourceName(id);

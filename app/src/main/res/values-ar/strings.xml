@@ -85,7 +85,7 @@
     <string name="kilometers">كم</string>
     <!-- About -->
     <string name="about_app_text">السلام عليكم ولرحمة الله وبركاته.  أهلاً بكم في تطبيق RPTP للهاتف المحمول, تطبيق مفتوح المصدر يوفر معلومات شاملة عن النقل العام لأنظمة القطار والحافلات في الرياض. اعثر على المسارات، وشاهد المحطات القريبة، وتنقل في المدينة بسهولة.</string>
-    <string name="app_version">الإصدار 0.2.0</string>
+    <string name="app_version">الإصدار 0.3.6</string>
 
     <!-- Route Instructions -->
     <string name="take_bus">اتجه على متن حافلة رقم %1$s وانزل في %2$s</string>
