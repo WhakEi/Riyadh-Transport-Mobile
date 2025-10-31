@@ -55,6 +55,11 @@
             android:name=".StationLinesActivity"
             android:label="@string/station_lines"
             android:parentActivityName=".LineStationsActivity" />
+            
+        <activity
+            android:name=".SearchLocationActivity"
+            android:windowSoftInputMode="stateAlwaysVisible"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

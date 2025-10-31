@@ -1,5 +1,7 @@
 package com.riyadhtransport.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import com.riyadhtransport.models.Station;
 import com.riyadhtransport.MainActivity;
 import com.riyadhtransport.R;
+import com.riyadhtransport.SearchLocationActivity;
 import com.riyadhtransport.adapters.RouteSegmentAdapter;
 import com.riyadhtransport.api.ApiClient;
 import com.riyadhtransport.models.Route;
@@ -52,6 +55,8 @@ public class RouteFragment extends Fragment {
     private LocationHelper locationHelper;
     private double currentLat = 0;
     private double currentLng = 0;
+    private double startLat = 0, startLng = 0, endLat = 0, endLng = 0;
+    private String startName = "", endName = "";
     private List<Station> allStations = new ArrayList<>();
     private Map<String, Station> stationMap = new HashMap<>();
     
@@ -84,11 +89,51 @@ public class RouteFragment extends Fragment {
         // Setup listeners
         findRouteButton.setOnClickListener(v -> findRoute());
         useLocationButton.setOnClickListener(v -> useMyLocation());
+        
+        // Open search activity on click
+        startInput.setFocusable(false);
+        startInput.setOnClickListener(v -> openSearchActivity(SearchLocationActivity.REQUEST_SEARCH_START));
+        
+        endInput.setFocusable(false);
+        endInput.setOnClickListener(v -> openSearchActivity(SearchLocationActivity.REQUEST_SEARCH_END));
 
         loadStations();
         
         // Get current location
         getCurrentLocation();
+    }
+    
+    private void openSearchActivity(int requestCode) {
+        Intent intent = new Intent(requireContext(), SearchLocationActivity.class);
+        if (requestCode == SearchLocationActivity.REQUEST_SEARCH_START) {
+            intent.putExtra(SearchLocationActivity.EXTRA_SEARCH_TYPE, "origin");
+        } else {
+            intent.putExtra(SearchLocationActivity.EXTRA_SEARCH_TYPE, "destination");
+        }
+        startActivityForResult(intent, requestCode);
+    }
+    
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            String name = data.getStringExtra(SearchLocationActivity.EXTRA_RESULT_NAME);
+            double lat = data.getDoubleExtra(SearchLocationActivity.EXTRA_RESULT_LAT, 0);
+            double lng = data.getDoubleExtra(SearchLocationActivity.EXTRA_RESULT_LNG, 0);
+            
+            if (requestCode == SearchLocationActivity.REQUEST_SEARCH_START) {
+                startInput.setText(name);
+                startLat = lat;
+                startLng = lng;
+                startName = name;
+            } else if (requestCode == SearchLocationActivity.REQUEST_SEARCH_END) {
+                endInput.setText(name);
+                endLat = lat;
+                endLng = lng;
+                endName = name;
+            }
+        }
     }
 
     private void loadStations() {
@@ -157,203 +202,30 @@ public class RouteFragment extends Fragment {
             getCurrentLocation();
             Toast.makeText(requireContext(), R.string.finding_location, Toast.LENGTH_SHORT).show();
         } else {
-            startInput.setText(String.format("My Location (%.4f, %.4f)", currentLat, currentLng));
+            startInput.setText(getString(R.string.my_location));
+            startLat = currentLat;
+            startLng = currentLng;
+            startName = getString(R.string.my_location);
         }
     }
     
     private void findRoute() {
-        String start = startInput.getText() != null ? startInput.getText().toString() : "";
-        String end = endInput.getText() != null ? endInput.getText().toString() : "";
-        
-        if (start.isEmpty() || end.isEmpty()) {
-            Toast.makeText(requireContext(), "Please enter both start and end locations", 
+        if (startName.isEmpty() || endName.isEmpty()) {
+            Toast.makeText(requireContext(), 
+                    R.string.error_select_locations, 
                     Toast.LENGTH_SHORT).show();
             return;
         }
         
-        // Parse coordinates from text if present
-        double startLat = 0, startLng = 0, endLat = 0, endLng = 0;
-        boolean startIsCoord = false, endIsCoord = false;
-
-        // Check if start is a coordinate (from map tap or "My Location")
-        if (start.contains("Location (") || start.contains("My Location")) {
-            startLat = currentLat;
-            startLng = currentLng;
-            startIsCoord = true;
+        if (startLat == 0 || startLng == 0 || endLat == 0 || endLng == 0) {
+            Toast.makeText(requireContext(), 
+                    R.string.error_invalid_locations, 
+                    Toast.LENGTH_SHORT).show();
+            return;
         }
-
-        // Check if end is a coordinate (from map tap)
-        if (end.contains("Location (")) {
-            // Parse coordinates from text like "Location (24.1234, 46.5678)"
-            try {
-                String coords = end.substring(end.indexOf("(") + 1, end.indexOf(")"));
-                String[] parts = coords.split(",");
-                endLat = Double.parseDouble(parts[0].trim());
-                endLng = Double.parseDouble(parts[1].trim());
-                endIsCoord = true;
-            } catch (Exception e) {
-                // Failed to parse, treat as station name
-            }
+        
+        findRouteFromCoordinates(startLat, startLng, endLat, endLng);
         }
-
-        // Get coordinates based on input types
-        if (startIsCoord && endIsCoord) {
-            // Both coordinates
-            findRouteFromCoordinates(startLat, startLng, endLat, endLng);
-        } else if (startIsCoord && !endIsCoord) {
-            // Start is coordinate, end is station
-            Station endStation = stationMap.get(end);
-            if (endStation != null) {
-                findRouteFromCoordinates(startLat, startLng,
-                        endStation.getLatitude(), endStation.getLongitude());
-            } else {
-                Toast.makeText(requireContext(),
-                        "Please select a valid station for destination",
-                        Toast.LENGTH_SHORT).show();
-            }
-            }
-            else if (!startIsCoord && endIsCoord) {
-            // Start is station, end is coordinate
-            Station startStation = stationMap.get(start);
-            if (startStation != null) {
-                findRouteFromCoordinates(startStation.getLatitude(), startStation.getLongitude(),
-                        endLat, endLng);
-            } else {
-                Toast.makeText(requireContext(),
-                        "Please select a valid station for origin",
-                        Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            // Both might be station names or location names
-            Station startStation = stationMap.get(start);
-            Station endStation = stationMap.get(end);
-
-            if (startStation != null && endStation != null) {
-                // Both are known stations
-                findRouteFromCoordinates(startStation.getLatitude(), startStation.getLongitude(),
-                        endStation.getLatitude(), endStation.getLongitude());
-            } else if (startStation == null && endStation != null) {
-                // Start is unknown, try Nominatim
-                searchLocationAndFindRoute(start, true, endStation.getLatitude(), endStation.getLongitude());
-            } else if (startStation != null && endStation == null) {
-                // End is unknown, try Nominatim
-                searchLocationAndFindRoute(end, false, startStation.getLatitude(), startStation.getLongitude());
-            } else {
-                // Both unknown, search start first
-                searchBothLocationsAndFindRoute(start, end);
-            }
-        }
-        }
-    
-    private void searchLocationAndFindRoute(String locationName, boolean isStart, double otherLat, double otherLng) {
-        // Riyadh bounding box: viewbox format is: min_lon,min_lat,max_lon,max_lat
-        String viewbox = "46.5,24.5,47.0,25.0";
-
-        ApiClient.getNominatimService().search(
-                locationName + ", Riyadh",
-                "json",
-                5,
-                1,
-                viewbox
-        ).enqueue(new Callback<List<com.riyadhtransport.models.NominatimResult>>() {
-            @Override
-            public void onResponse(@NonNull Call<List<com.riyadhtransport.models.NominatimResult>> call,
-                                   @NonNull Response<List<com.riyadhtransport.models.NominatimResult>> response) {
-                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
-                    com.riyadhtransport.models.NominatimResult result = response.body().get(0);
-                    double lat = result.getLatitudeAsDouble();
-                    double lng = result.getLongitudeAsDouble();
-
-                    if (isStart) {
-                        findRouteFromCoordinates(lat, lng, otherLat, otherLng);
-                    } else {
-                        findRouteFromCoordinates(otherLat, otherLng, lat, lng);
-                    }
-                } else {
-                    Toast.makeText(requireContext(),
-                            "Location not found: " + locationName,
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<List<com.riyadhtransport.models.NominatimResult>> call,
-                                  @NonNull Throwable t) {
-                Toast.makeText(requireContext(),
-                        "Failed to search location: " + t.getMessage(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void searchBothLocationsAndFindRoute(String startName, String endName) {
-        String viewbox = "46.5,24.5,47.0,25.0";
-
-        // Search start location
-        ApiClient.getNominatimService().search(
-                startName + ", Riyadh",
-                "json",
-                5,
-                1,
-                viewbox
-        ).enqueue(new Callback<List<com.riyadhtransport.models.NominatimResult>>() {
-            @Override
-            public void onResponse(@NonNull Call<List<com.riyadhtransport.models.NominatimResult>> call,
-                                   @NonNull Response<List<com.riyadhtransport.models.NominatimResult>> response) {
-                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
-                    com.riyadhtransport.models.NominatimResult startResult = response.body().get(0);
-                    double startLat = startResult.getLatitudeAsDouble();
-                    double startLng = startResult.getLongitudeAsDouble();
-
-                    // Now search end location
-                    ApiClient.getNominatimService().search(
-                            endName + ", Riyadh",
-                            "json",
-                            5,
-                            1,
-                            viewbox
-                    ).enqueue(new Callback<List<com.riyadhtransport.models.NominatimResult>>() {
-                        @Override
-                        public void onResponse(@NonNull Call<List<com.riyadhtransport.models.NominatimResult>> call2,
-                                               @NonNull Response<List<com.riyadhtransport.models.NominatimResult>> response2) {
-                            if (response2.isSuccessful() && response2.body() != null && !response2.body().isEmpty()) {
-                                com.riyadhtransport.models.NominatimResult endResult = response2.body().get(0);
-                                double endLat = endResult.getLatitudeAsDouble();
-                                double endLng = endResult.getLongitudeAsDouble();
-
-                                findRouteFromCoordinates(startLat, startLng, endLat, endLng);
-                            } else {
-                                Toast.makeText(requireContext(),
-                                        "Destination not found: " + endName,
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(@NonNull Call<List<com.riyadhtransport.models.NominatimResult>> call2,
-                                              @NonNull Throwable t) {
-                            Toast.makeText(requireContext(),
-                                    "Failed to search destination: " + t.getMessage(),
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } else {
-                    Toast.makeText(requireContext(),
-                            "Origin not found: " + startName,
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<List<com.riyadhtransport.models.NominatimResult>> call,
-                                  @NonNull Throwable t) {
-                Toast.makeText(requireContext(),
-                        "Failed to search origin: " + t.getMessage(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
 
     private void findRouteFromCoordinates(double startLat, double startLng,
                                           double endLat, double endLng) {
@@ -588,14 +460,22 @@ public class RouteFragment extends Fragment {
 
             mapView.getController().setZoom((double) zoomLevel);
         }
-    }   // Public methods for setting locations from map tap
+    }
+    
+    // Public methods for setting locations from map tap
     public void setStartLocation(double latitude, double longitude) {
-        currentLat = latitude;
-        currentLng = longitude;
-        startInput.setText(String.format("Location (%.4f, %.4f)", latitude, longitude));
+        String locationText = String.format("Location (%.4f, %.4f)", latitude, longitude);
+        startInput.setText(locationText);
+        startLat = latitude;
+        startLng = longitude;
+        startName = locationText;
     }
 
     public void setEndLocation(double latitude, double longitude) {
-        endInput.setText(String.format("Location (%.4f, %.4f)", latitude, longitude));
+        String locationText = String.format("Location (%.4f, %.4f)", latitude, longitude);
+        endInput.setText(locationText);
+        endLat = latitude;
+        endLng = longitude;
+        endName = locationText;
     }
 }
