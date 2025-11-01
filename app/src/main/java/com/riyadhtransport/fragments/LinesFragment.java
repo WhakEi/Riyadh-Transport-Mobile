@@ -41,8 +41,6 @@ import retrofit2.Response;
 public class LinesFragment extends Fragment {
     
     private static final String PREFS_NAME = "LinesCache";
-    private static final String KEY_LINES = "cached_lines";
-    private static final String KEY_TIMESTAMP = "cache_timestamp";
     private static final long CACHE_DURATION = 7 * 24 * 60 * 60 * 1000L; // 1 week in milliseconds
     
     private TextInputEditText searchInput;
@@ -170,9 +168,18 @@ public class LinesFragment extends Fragment {
         });
     }
     
+    private String getCacheKey(String baseName) {
+        // Create language-specific cache keys
+        String language = com.riyadhtransport.utils.LocaleHelper.getLanguageCode(requireContext());
+        return baseName + "_" + language;
+    }
+    
     private List<Line> loadFromCache() {
         SharedPreferences prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        long timestamp = prefs.getLong(KEY_TIMESTAMP, 0);
+        String keyLines = getCacheKey("cached_lines");
+        String keyTimestamp = getCacheKey("cache_timestamp");
+        
+        long timestamp = prefs.getLong(keyTimestamp, 0);
         long currentTime = System.currentTimeMillis();
         
         // Check if cache is still valid (within 1 week)
@@ -180,7 +187,7 @@ public class LinesFragment extends Fragment {
             return null;
         }
         
-        String json = prefs.getString(KEY_LINES, null);
+        String json = prefs.getString(keyLines, null);
         if (json == null) {
             return null;
         }
@@ -196,12 +203,15 @@ public class LinesFragment extends Fragment {
     
     private void saveToCache(List<Line> lines) {
         SharedPreferences prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String keyLines = getCacheKey("cached_lines");
+        String keyTimestamp = getCacheKey("cache_timestamp");
+        
         Gson gson = new Gson();
         String json = gson.toJson(lines);
         
         prefs.edit()
-            .putString(KEY_LINES, json)
-            .putLong(KEY_TIMESTAMP, System.currentTimeMillis())
+            .putString(keyLines, json)
+            .putLong(keyTimestamp, System.currentTimeMillis())
             .apply();
     }
     

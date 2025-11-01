@@ -91,6 +91,23 @@ public class Station {
     
     public String getDisplayName() {
         // Handle both /api/stations and /nearbystations formats
+        String displayName = null;
+        if (label != null) displayName = label;
+        else if (name != null) displayName = name;
+        else displayName = value;
+        
+        // Strip (Bus) or (Metro) suffix from nearby stations
+        if (displayName != null) {
+            displayName = displayName.replaceAll("\\s*\\(Bus\\)\\s*$", "").replaceAll("\\s*\\(Metro\\)\\s*$", "").trim();
+        }
+        
+        return displayName;
+    }
+    
+    /**
+     * Get the raw name without any processing (for API calls)
+     */
+    public String getRawName() {
         if (label != null) return label;
         if (name != null) return name;
         return value;

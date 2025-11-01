@@ -34,7 +34,6 @@ public class ApiClient {
             
             // Create OkHttpClient with timeout settings and Arabic locale interceptor
             OkHttpClient client = new OkHttpClient.Builder()
-                    .addInterceptor(loggingInterceptor)
                     .addInterceptor(chain -> {
                         // Add /ar/ prefix to endpoints when app is in Arabic
                         if (appContext != null && LocaleHelper.isArabic(appContext)) {
@@ -43,15 +42,19 @@ public class ApiClient {
                             if (url.startsWith(BASE_URL) && !url.contains("/ar/")) {
                                 String path = url.substring(BASE_URL.length());
                                 String newUrl = BASE_URL + "ar/" + path;
+                                android.util.Log.d("ApiClient", "Arabic mode: Rewriting URL from " + url + " to " + newUrl);
                                 return chain.proceed(
                                         chain.request().newBuilder()
                                                 .url(newUrl)
                                                 .build()
                                 );
                             }
+                        } else {
+                            android.util.Log.d("ApiClient", "English mode or null context, appContext=" + appContext);
                         }
                         return chain.proceed(chain.request());
                     })
+                    .addInterceptor(loggingInterceptor)
                     .connectTimeout(30, TimeUnit.SECONDS)
                     .readTimeout(30, TimeUnit.SECONDS)
                     .writeTimeout(30, TimeUnit.SECONDS)
