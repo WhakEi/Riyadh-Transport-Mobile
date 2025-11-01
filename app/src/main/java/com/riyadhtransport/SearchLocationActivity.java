@@ -158,12 +158,16 @@ public class SearchLocationActivity extends AppCompatActivity {
     private void searchNominatim(String query, List<SearchResult> existingResults) {
         String viewbox = "46.5,24.5,47.0,25.0"; // Riyadh bounding box
         
+        // Get current language for Nominatim results
+        String language = com.riyadhtransport.utils.LocaleHelper.getLanguageCode(this);
+        
         ApiClient.getNominatimService().search(
                 query + ", Riyadh",
                 "json",
                 10,
                 1,
-                viewbox
+                viewbox,
+                language
         ).enqueue(new Callback<List<NominatimResult>>() {
             @Override
             public void onResponse(@NonNull Call<List<NominatimResult>> call,

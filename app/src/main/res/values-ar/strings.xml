@@ -22,7 +22,7 @@
     <string name="nearby_stations">المحطات القريبة</string>
     <string name="arrivals">المواعيد</string>
     <string name="no_arrivals">لا توجد مواعيد متاحة</string>
-    <string name="metro_arrivals">مواعيد المترو</string>
+    <string name="metro_arrivals">مواعيد القطار</string>
     <string name="bus_arrivals">مواعيد الحافلات</string>
     <string name="minutes">دقيقة</string>
     <string name="closed">الخدمة مغلقة</string>
@@ -30,7 +30,7 @@
     <!-- Lines -->
     <string name="line_details">تفاصيل الخط</string>
     <string name="search_lines">البحث عن خط...</string>
-    <string name="metro_lines">خطوط المترو</string>
+    <string name="metro_lines">مسارات القطار</string>
     <string name="bus_lines">خطوط الحافلات</string>
     <string name="select_direction">اختر الاتجاه</string>
     
@@ -44,7 +44,7 @@
     
     <!-- Route Segments -->
     <string name="walk">مشي</string>
-    <string name="metro">مترو</string>
+    <string name="metro">قطار</string>
     <string name="bus">حافلة</string>
     <string name="transfer">تحويل</string>
     <string name="total_time">الوقت الإجمالي</string>
@@ -98,7 +98,20 @@
 
     <!-- About -->
     <string name="about_app_text">السلام عليكم ولرحمة الله وبركاته.  أهلاً بكم في تطبيق RPTP للهاتف المحمول, تطبيق مفتوح المصدر يوفر معلومات شاملة عن النقل العام لأنظمة القطار والحافلات في الرياض. اعثر على المسارات، وشاهد المحطات القريبة، وتنقل في المدينة بسهولة.</string>
-    <string name="app_version">الإصدار 0.4.2</string>
+    <string name="app_version">الإصدار 0.5.1</string>
+
+    <!-- Cache -->
+    <string name="clear_cache">مسح ذاكرة التخزين المؤقت</string>
+    <string name="cache_cleared">تم مسح ذاكرة التخزين المؤقت بنجاح</string>
+    
+    <!-- Favorites -->
+    <string name="favorites">المفضلة</string>
+    <string name="add_to_favorites">إضافة إلى المفضلة</string>
+    <string name="remove_from_favorites">إزالة من المفضلة</string>
+    <string name="added_to_favorites">تمت الإضافة إلى المفضلة</string>
+    <string name="removed_from_favorites">تمت الإزالة من المفضلة</string>
+    <string name="no_favorites">لا توجد مفضلات حتى الآن</string>
+    <string name="no_favorites_message">اضغط على أيقونة النجمة على المحطات أو المواقع لإضافتها إلى المفضلة</string>
 
     <!-- Route Instructions -->
     <string name="take_bus">اتجه على متن حافلة رقم %1$s وانزل في %2$s</string>
@@ -106,10 +119,24 @@
     <string name="walk_to_station">امشي إلى %1$s (%2$s)</string>
     <string name="walk_to_destination">امشي إلى وجهتك</string>
     <string name="bus_stop">محطة حافلات</string>
-    <string name="metro_station">محطة مترو</string>
-    <string name="min_walk">دقيقة مشي</string>
+    <string name="metro_station">محطة قطار</string>
+    <string name="min_walk">دقيقة مشيًا</string>
     <string name="your_destination">وجهتك</string>
     <string name="next_stop">المحطة التالية</string>
     <string name="current_location">الموقع الحالي</string>
     <string name="destination">الوجهة</string>
+
+    <!-- Error messages -->
+    <string name="error_no_line_specified">خطأ: لم يتم تحديد خط</string>
+    <string name="error_no_station_specified">خطأ: لم يتم تحديد محطة</string>
+    <string name="error_failed_route">فشل في العثور على مسار</string>
+    <string name="error_failed_line_details">فشل في تحميل تفاصيل الخط</string>
+    <string name="error_failed_arrivals">فشل في تحميل المواعيد</string>
+    <string name="error_location_unavailable">غير قادر على الحصول على الموقع</string>
+    <string name="error_location_permission_denied">إذن الموقع غير ممنوح</string>
+    <string name="error_location_getting">خطأ في الحصول على الموقع: %s</string>
+    <string name="error_location_permission_error">خطأ في إذن الموقع: %s</string>
+    <string name="error_location_default">غير قادر على الحصول على الموقع. استخدام الافتراضي.</string>
+    <string name="info_line_details_loaded">تم تحميل تفاصيل الخط</string>
+    <string name="info_arrivals_loaded">تم تحميل المواعيد</string>
 </resources>

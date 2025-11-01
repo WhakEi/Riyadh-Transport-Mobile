@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +34,7 @@ public class StationsFragment extends Fragment {
     private TextInputEditText searchInput;
     private RecyclerView stationsRecycler;
     private StationAdapter stationAdapter;
+    private ProgressBar progressBar;
     private LocationHelper locationHelper;
     private double currentLat = 0;
     private double currentLng = 0;
@@ -53,6 +55,7 @@ public class StationsFragment extends Fragment {
         // Initialize views
         searchInput = view.findViewById(R.id.search_stations);
         stationsRecycler = view.findViewById(R.id.stations_recycler);
+        progressBar = view.findViewById(R.id.progress_bar);
         
         // Setup RecyclerView
         stationAdapter = new StationAdapter(station -> {
@@ -89,6 +92,7 @@ public class StationsFragment extends Fragment {
             return;
         }
 
+        progressBar.setVisibility(View.VISIBLE);
         locationHelper.getCurrentLocation(new LocationHelper.LocationCallback() {
             @Override
             public void onLocationReceived(double latitude, double longitude) {
@@ -100,7 +104,7 @@ public class StationsFragment extends Fragment {
             @Override
             public void onLocationError(String error) {
                 Toast.makeText(requireContext(),
-                        "Unable to get location. Using default.",
+                        R.string.error_location_default,
                         Toast.LENGTH_SHORT).show();
                 // Use Riyadh center as default
                 fetchNearbyStations(24.7136, 46.6753);
@@ -109,6 +113,7 @@ public class StationsFragment extends Fragment {
     }
 
     public void fetchNearbyStations(double latitude, double longitude) {
+        progressBar.setVisibility(View.VISIBLE);
         Map<String, Object> body = new HashMap<>();
         body.put("lat", latitude);
         body.put("lng", longitude);
@@ -118,6 +123,7 @@ public class StationsFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<List<Station>> call, 
                                    @NonNull Response<List<Station>> response) {
+                progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful() && response.body() != null) {
                     stationAdapter.setStations(response.body());
                 } else {
@@ -129,6 +135,7 @@ public class StationsFragment extends Fragment {
             
             @Override
             public void onFailure(@NonNull Call<List<Station>> call, @NonNull Throwable t) {
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(requireContext(), 
                         getString(R.string.error_network) + ": " + t.getMessage(), 
                         Toast.LENGTH_SHORT).show();
@@ -146,6 +153,15 @@ public class StationsFragment extends Fragment {
                                    @NonNull Response<Map<String, Object>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Map<String, Object> data = response.body();
+                    
+                    // Check if there's an error in the response
+                    if (data.containsKey("error")) {
+                        String errorMsg = (String) data.get("error");
+                        Toast.makeText(requireContext(),
+                                getString(R.string.error) + ": " + errorMsg,
+                                Toast.LENGTH_LONG).show();
+                        return;
+                    }
                     
                     // Extract lines from response
                     List<String> metroLines = new ArrayList<>();
@@ -182,9 +198,13 @@ public class StationsFragment extends Fragment {
                     intent.putStringArrayListExtra("bus_lines", new ArrayList<>(busLines));
                     startActivity(intent);
                 } else {
+                    String errorMsg = getString(R.string.error_network);
+                    if (response.code() != 0) {
+                        errorMsg += " (HTTP " + response.code() + ")";
+                    }
                     Toast.makeText(requireContext(),
-                            R.string.error_network,
-                            Toast.LENGTH_SHORT).show();
+                            errorMsg,
+                            Toast.LENGTH_LONG).show();
                 }
             }
             
@@ -192,7 +212,7 @@ public class StationsFragment extends Fragment {
             public void onFailure(@NonNull Call<Map<String, Object>> call, @NonNull Throwable t) {
                 Toast.makeText(requireContext(),
                         getString(R.string.error_network) + ": " + t.getMessage(),
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_LONG).show();
             }
         });
     }

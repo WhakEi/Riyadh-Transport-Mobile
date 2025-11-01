@@ -183,6 +183,15 @@ public class LineStationsActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     Map<String, Object> data = response.body();
                     
+                    // Check if there's an error in the response
+                    if (data.containsKey("error")) {
+                        String errorMsg = (String) data.get("error");
+                        Toast.makeText(LineStationsActivity.this,
+                                getString(R.string.error) + ": " + errorMsg,
+                                Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    
                     // Extract lines from response
                     List<String> metroLines = new ArrayList<>();
                     List<String> busLines = new ArrayList<>();
@@ -218,9 +227,13 @@ public class LineStationsActivity extends AppCompatActivity {
                     intent.putStringArrayListExtra("bus_lines", new ArrayList<>(busLines));
                     startActivity(intent);
                 } else {
+                    String errorMsg = getString(R.string.error_network);
+                    if (response.code() != 0) {
+                        errorMsg += " (HTTP " + response.code() + ")";
+                    }
                     Toast.makeText(LineStationsActivity.this,
-                            R.string.error_network,
-                            Toast.LENGTH_SHORT).show();
+                            errorMsg,
+                            Toast.LENGTH_LONG).show();
                 }
             }
             
@@ -228,7 +241,7 @@ public class LineStationsActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<Map<String, Object>> call, @NonNull Throwable t) {
                 Toast.makeText(LineStationsActivity.this,
                         getString(R.string.error_network) + ": " + t.getMessage(),
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_LONG).show();
             }
         });
     }

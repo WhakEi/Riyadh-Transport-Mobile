@@ -62,6 +62,19 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
+    <!-- Favorites Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_favorites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|top"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/favorites"
+        android:src="@drawable/ic_favorite"
+        app:tint="@color/white"
+        app:backgroundTint="@color/colorAccent"
+        app:fabSize="normal" />
+
     <!-- Settings Button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_settings"

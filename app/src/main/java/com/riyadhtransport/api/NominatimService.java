@@ -14,6 +14,7 @@ public interface NominatimService {
             @Query("format") String format,
             @Query("limit") int limit,
             @Query("bounded") int bounded,
-            @Query("viewbox") String viewbox
+            @Query("viewbox") String viewbox,
+            @Query("accept-language") String acceptLanguage
     );
 }

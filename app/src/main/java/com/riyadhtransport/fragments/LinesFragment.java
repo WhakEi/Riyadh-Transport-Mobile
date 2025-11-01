@@ -1,7 +1,9 @@
 package com.riyadhtransport.fragments;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -17,13 +20,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.riyadhtransport.LineStationsActivity;
 import com.riyadhtransport.R;
 import com.riyadhtransport.adapters.LineAdapter;
 import com.riyadhtransport.api.ApiClient;
 import com.riyadhtransport.models.Line;
 import com.riyadhtransport.utils.LineColorHelper;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,9 +40,13 @@ import retrofit2.Response;
 
 public class LinesFragment extends Fragment {
     
+    private static final String PREFS_NAME = "LinesCache";
+    private static final long CACHE_DURATION = 7 * 24 * 60 * 60 * 1000L; // 1 week in milliseconds
+    
     private TextInputEditText searchInput;
     private RecyclerView linesRecycler;
     private LineAdapter lineAdapter;
+    private ProgressBar progressBar;
     private boolean linesLoaded = false;
     
     @Nullable
@@ -53,6 +63,7 @@ public class LinesFragment extends Fragment {
         // Initialize views
         searchInput = view.findViewById(R.id.search_lines);
         linesRecycler = view.findViewById(R.id.lines_recycler);
+        progressBar = view.findViewById(R.id.progress_bar);
         
         // Setup RecyclerView
         lineAdapter = new LineAdapter(line -> showLineDetails(line));
@@ -73,13 +84,27 @@ public class LinesFragment extends Fragment {
             public void afterTextChanged(Editable s) {}
         });
 
-        // Load lines data
+        // Load lines data (with caching)
         if (!linesLoaded) {
             loadLines();
         }
     }
-
+    
     private void loadLines() {
+        // Check cache first
+        List<Line> cachedLines = loadFromCache();
+        if (cachedLines != null && !cachedLines.isEmpty()) {
+            lineAdapter.setLines(cachedLines);
+            linesLoaded = true;
+            return;
+        }
+        
+        // Cache miss or expired - fetch from API
+        fetchLinesFromApi();
+    }
+    
+    private void fetchLinesFromApi() {
+        progressBar.setVisibility(View.VISIBLE);
         List<Line> allLines = new ArrayList<>();
 
         // Load metro lines
@@ -102,6 +127,7 @@ public class LinesFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<JsonObject> call, @NonNull Throwable t) {
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(requireContext(),
                         getString(R.string.error_network),
                         Toast.LENGTH_SHORT).show();
@@ -113,6 +139,7 @@ public class LinesFragment extends Fragment {
         ApiClient.getApiService().getBusLines().enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(@NonNull Call<JsonObject> call, @NonNull Response<JsonObject> response) {
+                progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful() && response.body() != null) {
                     String linesStr = response.body().get("lines").getAsString();
                     String[] busLines = linesStr.split(",");
@@ -121,19 +148,76 @@ public class LinesFragment extends Fragment {
                         allLines.add(new Line(lineId, getString(R.string.bus) + " " + lineId, "bus"));
                     }
 
-                    // Update adapter
+                    // Update adapter and save to cache
                     lineAdapter.setLines(allLines);
                     linesLoaded = true;
+                    saveToCache(allLines);
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<JsonObject> call, @NonNull Throwable t) {
+                progressBar.setVisibility(View.GONE);
                 // Still show metro lines if bus lines fail
                 lineAdapter.setLines(allLines);
                 linesLoaded = true;
+                if (!allLines.isEmpty()) {
+                    saveToCache(allLines);
+                }
             }
         });
+    }
+    
+    private String getCacheKey(String baseName) {
+        // Create language-specific cache keys
+        String language = com.riyadhtransport.utils.LocaleHelper.getLanguageCode(requireContext());
+        return baseName + "_" + language;
+    }
+    
+    private List<Line> loadFromCache() {
+        SharedPreferences prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String keyLines = getCacheKey("cached_lines");
+        String keyTimestamp = getCacheKey("cache_timestamp");
+        
+        long timestamp = prefs.getLong(keyTimestamp, 0);
+        long currentTime = System.currentTimeMillis();
+        
+        // Check if cache is still valid (within 1 week)
+        if (currentTime - timestamp > CACHE_DURATION) {
+            return null;
+        }
+        
+        String json = prefs.getString(keyLines, null);
+        if (json == null) {
+            return null;
+        }
+        
+        try {
+            Gson gson = new Gson();
+            Type listType = new TypeToken<ArrayList<Line>>(){}.getType();
+            return gson.fromJson(json, listType);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    private void saveToCache(List<Line> lines) {
+        SharedPreferences prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String keyLines = getCacheKey("cached_lines");
+        String keyTimestamp = getCacheKey("cache_timestamp");
+        
+        Gson gson = new Gson();
+        String json = gson.toJson(lines);
+        
+        prefs.edit()
+            .putString(keyLines, json)
+            .putLong(keyTimestamp, System.currentTimeMillis())
+            .apply();
+    }
+    
+    public static void clearCache(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        prefs.edit().clear().apply();
     }
 
     private void showLineDetails(Line line) {

@@ -60,6 +60,11 @@
             android:name=".SearchLocationActivity"
             android:windowSoftInputMode="stateAlwaysVisible"
             android:parentActivityName=".MainActivity" />
+            
+        <activity
+            android:name=".FavoritesActivity"
+            android:label="@string/favorites"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

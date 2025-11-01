@@ -71,12 +71,14 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
         TextView stationName;
         TextView stationType;
         TextView stationDistance;
+        android.widget.ImageButton starButton;
         
         StationViewHolder(@NonNull View itemView) {
             super(itemView);
             stationName = itemView.findViewById(R.id.station_name);
             stationType = itemView.findViewById(R.id.station_type);
             stationDistance = itemView.findViewById(R.id.station_distance);
+            starButton = itemView.findViewById(R.id.star_button);
         }
         
         void bind(Station station, OnStationClickListener listener) {
@@ -110,6 +112,29 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
             } else {
                 stationDistance.setVisibility(View.GONE);
             }
+            
+            // Update star button based on favorites status
+            boolean isFavorite = com.riyadhtransport.utils.FavoritesManager.isFavorite(
+                itemView.getContext(), station.getDisplayName(), station.getLatitude(), station.getLongitude()
+            );
+            starButton.setImageResource(isFavorite ? R.drawable.ic_star_filled : R.drawable.ic_star_outline);
+            
+            // Handle star button click
+            starButton.setOnClickListener(v -> {
+                com.riyadhtransport.models.Favorite favorite = new com.riyadhtransport.models.Favorite(
+                    station.getDisplayName(), "station", station.getLatitude(), station.getLongitude(), station.getType()
+                );
+                
+                if (isFavorite) {
+                    com.riyadhtransport.utils.FavoritesManager.removeFavorite(itemView.getContext(), favorite);
+                    starButton.setImageResource(R.drawable.ic_star_outline);
+                    android.widget.Toast.makeText(itemView.getContext(), R.string.removed_from_favorites, android.widget.Toast.LENGTH_SHORT).show();
+                } else {
+                    com.riyadhtransport.utils.FavoritesManager.addFavorite(itemView.getContext(), favorite);
+                    starButton.setImageResource(R.drawable.ic_star_filled);
+                    android.widget.Toast.makeText(itemView.getContext(), R.string.added_to_favorites, android.widget.Toast.LENGTH_SHORT).show();
+                }
+            });
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {

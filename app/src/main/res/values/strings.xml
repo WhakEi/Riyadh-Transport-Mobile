@@ -98,7 +98,20 @@
 
     <!-- About -->
     <string name="about_app_text">Welcome to RPTP Mobile, an open-source mobile app providing comprehensive public transportation information for Riyadh\'s metro and bus systems. Find routes, view nearby stations, and navigate the city with ease.</string>
-    <string name="app_version">Version 0.4.2</string>
+    <string name="app_version">Version 0.5.1</string>
+    
+    <!-- Cache -->
+    <string name="clear_cache">Clear Cache</string>
+    <string name="cache_cleared">Cache cleared successfully</string>
+    
+    <!-- Favorites -->
+    <string name="favorites">Favorites</string>
+    <string name="add_to_favorites">Add to Favorites</string>
+    <string name="remove_from_favorites">Remove from Favorites</string>
+    <string name="added_to_favorites">Added to favorites</string>
+    <string name="removed_from_favorites">Removed from favorites</string>
+    <string name="no_favorites">No favorites yet</string>
+    <string name="no_favorites_message">Tap the star icon on stations or locations to add them to your favorites</string>
 
     <!-- Route Instructions -->
     <string name="take_bus">Take Bus %1$s and disembark at %2$s</string>
@@ -112,4 +125,18 @@
     <string name="next_stop">next stop</string>
     <string name="current_location">current location</string>
     <string name="destination">destination</string>
+    
+    <!-- Error messages -->
+    <string name="error_no_line_specified">Error: No line specified</string>
+    <string name="error_no_station_specified">Error: No station specified</string>
+    <string name="error_failed_route">Failed to find route</string>
+    <string name="error_failed_line_details">Failed to load line details</string>
+    <string name="error_failed_arrivals">Failed to load arrivals</string>
+    <string name="error_location_unavailable">Unable to get location</string>
+    <string name="error_location_permission_denied">Location permission not granted</string>
+    <string name="error_location_getting">Error getting location: %s</string>
+    <string name="error_location_permission_error">Location permission error: %s</string>
+    <string name="error_location_default">Unable to get location. Using default.</string>
+    <string name="info_line_details_loaded">Line details loaded</string>
+    <string name="info_arrivals_loaded">Arrivals loaded</string>
 </resources>

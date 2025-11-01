@@ -1,10 +1,10 @@
 <resources>
-    <!-- Primary colors -->
+    <!-- Primary colors for dark mode -->
     <color name="colorPrimary">#1aad00</color>
     <color name="colorPrimaryDark">#106d00</color>
     <color name="colorAccent">#1379c6</color>
     
-    <!-- Metro Line Colors (matching frontend) -->
+    <!-- Metro Line Colors (same in dark mode) -->
     <color name="metro_line_1">#00aee6</color> <!-- Blue Line -->
     <color name="metro_line_2">#ef4938</color> <!-- Red Line -->
     <color name="metro_line_3">#f68d39</color> <!-- Orange Line -->
@@ -16,24 +16,24 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="gray">#808080</color>
-    <color name="light_gray">#E0E0E0</color>
-    <color name="dark_gray">#424242</color>
+    <color name="light_gray">#424242</color> <!-- Darker for dark mode -->
+    <color name="dark_gray">#E0E0E0</color> <!-- Lighter for dark mode -->
     <color name="blue_line">#007AFF</color>
     
-    <!-- Background -->
-    <color name="background">#F5F5F5</color>
-    <color name="card_background">#FFFFFF</color>
+    <!-- Background for dark mode -->
+    <color name="background">#121212</color>
+    <color name="card_background">#1E1E1E</color>
     
-    <!-- Text -->
-    <color name="text_primary">#212121</color>
-    <color name="text_secondary">#757575</color>
+    <!-- Text for dark mode -->
+    <color name="text_primary">#E0E0E0</color>
+    <color name="text_secondary">#A0A0A0</color>
     
     <!-- Status -->
     <color name="success">#4CAF50</color>
     <color name="warning">#FFC107</color>
     <color name="error">#F44336</color>
     
-    <!-- Bus and Walk colors (matching frontend) -->
+    <!-- Bus and Walk colors (same in dark mode) -->
     <color name="bus_color">#18a034</color>
     <color name="walk_color">#6c757d</color>
 </resources>

@@ -54,12 +54,14 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         private ImageView icon;
         private TextView name;
         private TextView description;
+        private android.widget.ImageButton starButton;
         
         ResultViewHolder(@NonNull View itemView) {
             super(itemView);
             icon = itemView.findViewById(R.id.result_icon);
             name = itemView.findViewById(R.id.result_name);
             description = itemView.findViewById(R.id.result_description);
+            starButton = itemView.findViewById(R.id.star_button);
             
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
@@ -85,6 +87,30 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                     itemView.getContext(), R.color.colorPrimary);
             androidx.core.widget.ImageViewCompat.setImageTintList(icon,
                     android.content.res.ColorStateList.valueOf(color));
+            
+            // Update star button based on favorites status
+            boolean isFavorite = com.riyadhtransport.utils.FavoritesManager.isFavorite(
+                itemView.getContext(), result.getName(), result.getLatitude(), result.getLongitude()
+            );
+            starButton.setImageResource(isFavorite ? R.drawable.ic_star_filled : R.drawable.ic_star_outline);
+            
+            // Handle star button click
+            starButton.setOnClickListener(v -> {
+                String type = result.isStation() ? "station" : "location";
+                com.riyadhtransport.models.Favorite favorite = new com.riyadhtransport.models.Favorite(
+                    result.getName(), type, result.getLatitude(), result.getLongitude(), null
+                );
+                
+                if (isFavorite) {
+                    com.riyadhtransport.utils.FavoritesManager.removeFavorite(itemView.getContext(), favorite);
+                    starButton.setImageResource(R.drawable.ic_star_outline);
+                    android.widget.Toast.makeText(itemView.getContext(), R.string.removed_from_favorites, android.widget.Toast.LENGTH_SHORT).show();
+                } else {
+                    com.riyadhtransport.utils.FavoritesManager.addFavorite(itemView.getContext(), favorite);
+                    starButton.setImageResource(R.drawable.ic_star_filled);
+                    android.widget.Toast.makeText(itemView.getContext(), R.string.added_to_favorites, android.widget.Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 }
