@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,6 +53,7 @@ public class RouteFragment extends Fragment {
     private LinearLayout routeDetailsContainer;
     private RecyclerView routeSegmentsRecycler;
     private RouteSegmentAdapter segmentAdapter;
+    private ProgressBar progressBar;
     private LocationHelper locationHelper;
     private double currentLat = 0;
     private double currentLng = 0;
@@ -80,6 +82,7 @@ public class RouteFragment extends Fragment {
         useLocationButton = view.findViewById(R.id.use_location_button);
         routeDetailsContainer = view.findViewById(R.id.route_details_container);
         routeSegmentsRecycler = view.findViewById(R.id.route_segments_recycler);
+        progressBar = view.findViewById(R.id.progress_bar);
         
         // Setup RecyclerView
         segmentAdapter = new RouteSegmentAdapter();
@@ -223,6 +226,7 @@ public class RouteFragment extends Fragment {
 
     private void findRouteFromCoordinates(double startLat, double startLng,
                                           double endLat, double endLng) {
+        progressBar.setVisibility(View.VISIBLE);
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("start_lat", startLat);
         requestBody.put("start_lng", startLng);
@@ -234,6 +238,7 @@ public class RouteFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<Map<String, Object>> call,
                                    @NonNull Response<Map<String, Object>> response) {
+                progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful() && response.body() != null) {
                     Map<String, Object> responseBody = response.body();
 
@@ -264,6 +269,7 @@ public class RouteFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<Map<String, Object>> call, @NonNull Throwable t) {
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(requireContext(),
                         getString(R.string.error_network) + ": " + t.getMessage(),
                         Toast.LENGTH_LONG).show();

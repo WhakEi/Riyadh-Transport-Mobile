@@ -56,14 +56,15 @@ public class MainActivity extends AppCompatActivity {
         
         // Load and apply saved language preference before anything else
         loadSavedLanguage();
+        
+        // Initialize ApiClient with context AFTER loading language preference
+        // This ensures the Arabic locale is properly detected
+        com.riyadhtransport.api.ApiClient.init(this);
 
         // Configure OSMDroid
         Context ctx = getApplicationContext();
         org.osmdroid.config.Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         org.osmdroid.config.Configuration.getInstance().setUserAgentValue(getPackageName());
-
-        // Initialize ApiClient with context for Arabic locale detection
-        com.riyadhtransport.api.ApiClient.init(this);
 
         setContentView(R.layout.activity_main);
 
@@ -295,6 +296,7 @@ public class MainActivity extends AppCompatActivity {
         android.widget.RadioGroup languageGroup = dialogView.findViewById(R.id.language_radio_group);
         android.widget.RadioButton englishRadio = dialogView.findViewById(R.id.radio_english);
         android.widget.RadioButton arabicRadio = dialogView.findViewById(R.id.radio_arabic);
+        android.widget.Button clearCacheButton = dialogView.findViewById(R.id.clear_cache_button);
 
         // Set current language selection
         String currentLang = getCurrentLanguage();
@@ -310,6 +312,12 @@ public class MainActivity extends AppCompatActivity {
             if (!newLang.equals(currentLang)) {
                 changeLanguage(newLang);
             }
+        });
+        
+        // Handle clear cache button
+        clearCacheButton.setOnClickListener(v -> {
+            com.riyadhtransport.fragments.LinesFragment.clearCache(this);
+            Toast.makeText(this, R.string.cache_cleared, Toast.LENGTH_SHORT).show();
         });
 
         builder.setPositiveButton(R.string.ok, null);
