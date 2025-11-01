@@ -22,7 +22,7 @@
     <string name="nearby_stations">المحطات القريبة</string>
     <string name="arrivals">المواعيد</string>
     <string name="no_arrivals">لا توجد مواعيد متاحة</string>
-    <string name="metro_arrivals">مواعيد المترو</string>
+    <string name="metro_arrivals">مواعيد القطار</string>
     <string name="bus_arrivals">مواعيد الحافلات</string>
     <string name="minutes">دقيقة</string>
     <string name="closed">الخدمة مغلقة</string>
@@ -30,7 +30,7 @@
     <!-- Lines -->
     <string name="line_details">تفاصيل الخط</string>
     <string name="search_lines">البحث عن خط...</string>
-    <string name="metro_lines">خطوط المترو</string>
+    <string name="metro_lines">مسارات القطار</string>
     <string name="bus_lines">خطوط الحافلات</string>
     <string name="select_direction">اختر الاتجاه</string>
     
@@ -44,7 +44,7 @@
     
     <!-- Route Segments -->
     <string name="walk">مشي</string>
-    <string name="metro">مترو</string>
+    <string name="metro">قطار</string>
     <string name="bus">حافلة</string>
     <string name="transfer">تحويل</string>
     <string name="total_time">الوقت الإجمالي</string>
@@ -98,8 +98,8 @@
 
     <!-- About -->
     <string name="about_app_text">السلام عليكم ولرحمة الله وبركاته.  أهلاً بكم في تطبيق RPTP للهاتف المحمول, تطبيق مفتوح المصدر يوفر معلومات شاملة عن النقل العام لأنظمة القطار والحافلات في الرياض. اعثر على المسارات، وشاهد المحطات القريبة، وتنقل في المدينة بسهولة.</string>
-    <string name="app_version">الإصدار 0.4.2</string>
-    
+    <string name="app_version">الإصدار 0.5.1</string>
+
     <!-- Cache -->
     <string name="clear_cache">مسح ذاكرة التخزين المؤقت</string>
     <string name="cache_cleared">تم مسح ذاكرة التخزين المؤقت بنجاح</string>
@@ -110,13 +110,13 @@
     <string name="walk_to_station">امشي إلى %1$s (%2$s)</string>
     <string name="walk_to_destination">امشي إلى وجهتك</string>
     <string name="bus_stop">محطة حافلات</string>
-    <string name="metro_station">محطة مترو</string>
-    <string name="min_walk">دقيقة مشي</string>
+    <string name="metro_station">محطة قطار</string>
+    <string name="min_walk">دقيقة مشيًا</string>
     <string name="your_destination">وجهتك</string>
     <string name="next_stop">المحطة التالية</string>
     <string name="current_location">الموقع الحالي</string>
     <string name="destination">الوجهة</string>
-    
+
     <!-- Error messages -->
     <string name="error_no_line_specified">خطأ: لم يتم تحديد خط</string>
     <string name="error_no_station_specified">خطأ: لم يتم تحديد محطة</string>
