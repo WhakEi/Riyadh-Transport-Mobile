@@ -2,7 +2,7 @@
     <!-- Primary colors -->
     <color name="colorPrimary">#1aad00</color>
     <color name="colorPrimaryDark">#106d00</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#1379c6</color>
     
     <!-- Metro Line Colors (matching frontend) -->
     <color name="metro_line_1">#00aee6</color> <!-- Blue Line -->
