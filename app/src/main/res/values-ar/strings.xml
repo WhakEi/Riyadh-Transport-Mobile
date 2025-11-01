@@ -103,6 +103,15 @@
     <!-- Cache -->
     <string name="clear_cache">مسح ذاكرة التخزين المؤقت</string>
     <string name="cache_cleared">تم مسح ذاكرة التخزين المؤقت بنجاح</string>
+    
+    <!-- Favorites -->
+    <string name="favorites">المفضلة</string>
+    <string name="add_to_favorites">إضافة إلى المفضلة</string>
+    <string name="remove_from_favorites">إزالة من المفضلة</string>
+    <string name="added_to_favorites">تمت الإضافة إلى المفضلة</string>
+    <string name="removed_from_favorites">تمت الإزالة من المفضلة</string>
+    <string name="no_favorites">لا توجد مفضلات حتى الآن</string>
+    <string name="no_favorites_message">اضغط على أيقونة النجمة على المحطات أو المواقع لإضافتها إلى المفضلة</string>
 
     <!-- Route Instructions -->
     <string name="take_bus">اتجه على متن حافلة رقم %1$s وانزل في %2$s</string>

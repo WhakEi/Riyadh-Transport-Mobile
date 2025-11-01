@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     private FloatingActionButton fabSettings;
+    private FloatingActionButton fabFavorites;
     private LocationHelper locationHelper;
     private BottomSheetBehavior<NestedScrollView> bottomSheetBehavior;
 
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_page_container);
         fabSettings = findViewById(R.id.fab_settings);
+        fabFavorites = findViewById(R.id.fab_favorites);
         mapView = findViewById(R.id.map);
         NestedScrollView bottomSheet = findViewById(R.id.bottom_sheet);
 
@@ -99,11 +101,48 @@ public class MainActivity extends AppCompatActivity {
 
         // Setup FAB for settings
         fabSettings.setOnClickListener(v -> showSettingsDialog());
+        
+        // Setup FAB for favorites
+        fabFavorites.setOnClickListener(v -> openFavorites());
 
         // Request location permission if not granted
         if (!LocationHelper.hasLocationPermission(this)) {
             LocationHelper.requestLocationPermission(this);
         }
+        
+        // Handle intent extras (from favorites)
+        handleIntent(getIntent());
+    }
+    
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        handleIntent(intent);
+    }
+    
+    private void handleIntent(Intent intent) {
+        if (intent.getBooleanExtra("set_destination", false)) {
+            String name = intent.getStringExtra("destination_name");
+            double lat = intent.getDoubleExtra("destination_lat", 0);
+            double lng = intent.getDoubleExtra("destination_lng", 0);
+            
+            // Switch to route tab
+            viewPager.setCurrentItem(0);
+            
+            // Set destination in route fragment
+            viewPager.post(() -> {
+                RouteFragment routeFragment = getRouteFragment();
+                if (routeFragment != null) {
+                    routeFragment.setEndLocation(lat, lng);
+                }
+            });
+        }
+    }
+    
+    private void openFavorites() {
+        Intent intent = new Intent(this, FavoritesActivity.class);
+        startActivity(intent);
     }
 
     private void setupMap() {

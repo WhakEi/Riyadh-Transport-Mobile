@@ -103,6 +103,15 @@
     <!-- Cache -->
     <string name="clear_cache">Clear Cache</string>
     <string name="cache_cleared">Cache cleared successfully</string>
+    
+    <!-- Favorites -->
+    <string name="favorites">Favorites</string>
+    <string name="add_to_favorites">Add to Favorites</string>
+    <string name="remove_from_favorites">Remove from Favorites</string>
+    <string name="added_to_favorites">Added to favorites</string>
+    <string name="removed_from_favorites">Removed from favorites</string>
+    <string name="no_favorites">No favorites yet</string>
+    <string name="no_favorites_message">Tap the star icon on stations or locations to add them to your favorites</string>
 
     <!-- Route Instructions -->
     <string name="take_bus">Take Bus %1$s and disembark at %2$s</string>

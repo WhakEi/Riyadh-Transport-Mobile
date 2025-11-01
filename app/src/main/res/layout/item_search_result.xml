@@ -45,4 +45,12 @@
 
     </LinearLayout>
 
+    <ImageButton
+        android:id="@+id/star_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_star_outline"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/add_to_favorites" />
+
 </LinearLayout>
