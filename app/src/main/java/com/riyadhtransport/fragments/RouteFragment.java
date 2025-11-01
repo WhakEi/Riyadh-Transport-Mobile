@@ -97,10 +97,42 @@ public class RouteFragment extends Fragment {
         endInput.setFocusable(false);
         endInput.setOnClickListener(v -> openSearchActivity(SearchLocationActivity.REQUEST_SEARCH_END));
 
+        // Load stations for map route drawing (not for autocomplete)
         loadStations();
         
         // Get current location
         getCurrentLocation();
+    }
+    
+    private void loadStations() {
+        ApiClient.getApiService().getStations().enqueue(new Callback<List<Station>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Station>> call,
+                                   @NonNull Response<List<Station>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    allStations = response.body();
+
+                    // Build station map for route drawing
+                    for (Station station : allStations) {
+                        String name = station.getDisplayName();
+                        stationMap.put(name, station);
+                    }
+                    // Note: We don't set up autocomplete adapter here because
+                    // SearchLocationActivity handles the search UI
+                } else {
+                    Toast.makeText(requireContext(),
+                            R.string.error_network,
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Station>> call, @NonNull Throwable t) {
+                Toast.makeText(requireContext(),
+                        getString(R.string.error_network) + ": " + t.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     
     private void openSearchActivity(int requestCode) {
@@ -136,45 +168,7 @@ public class RouteFragment extends Fragment {
         }
     }
 
-    private void loadStations() {
-        ApiClient.getApiService().getStations().enqueue(new Callback<List<Station>>() {
-            @Override
-            public void onResponse(@NonNull Call<List<Station>> call,
-                                   @NonNull Response<List<Station>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    allStations = response.body();
 
-                    // Build station name list and map
-                    List<String> stationNames = new ArrayList<>();
-                    for (Station station : allStations) {
-                        String name = station.getDisplayName();
-                        stationNames.add(name);
-                        stationMap.put(name, station);
-                    }
-
-                    // Setup autocomplete adapters
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                            requireContext(),
-                            android.R.layout.simple_dropdown_item_1line,
-                            stationNames
-                    );
-                    startInput.setAdapter(adapter);
-                    endInput.setAdapter(adapter);
-                } else {
-                    Toast.makeText(requireContext(),
-                            R.string.error_network,
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<List<Station>> call, @NonNull Throwable t) {
-                Toast.makeText(requireContext(),
-                        getString(R.string.error_network) + ": " + t.getMessage(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
     
     private void getCurrentLocation() {
         if (!LocationHelper.hasLocationPermission(requireContext())) {
