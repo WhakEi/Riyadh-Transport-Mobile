@@ -112,4 +112,18 @@
     <string name="next_stop">المحطة التالية</string>
     <string name="current_location">الموقع الحالي</string>
     <string name="destination">الوجهة</string>
+    
+    <!-- Error messages -->
+    <string name="error_no_line_specified">خطأ: لم يتم تحديد خط</string>
+    <string name="error_no_station_specified">خطأ: لم يتم تحديد محطة</string>
+    <string name="error_failed_route">فشل في العثور على مسار</string>
+    <string name="error_failed_line_details">فشل في تحميل تفاصيل الخط</string>
+    <string name="error_failed_arrivals">فشل في تحميل المواعيد</string>
+    <string name="error_location_unavailable">غير قادر على الحصول على الموقع</string>
+    <string name="error_location_permission_denied">إذن الموقع غير ممنوح</string>
+    <string name="error_location_getting">خطأ في الحصول على الموقع: %s</string>
+    <string name="error_location_permission_error">خطأ في إذن الموقع: %s</string>
+    <string name="error_location_default">غير قادر على الحصول على الموقع. استخدام الافتراضي.</string>
+    <string name="info_line_details_loaded">تم تحميل تفاصيل الخط</string>
+    <string name="info_arrivals_loaded">تم تحميل المواعيد</string>
 </resources>

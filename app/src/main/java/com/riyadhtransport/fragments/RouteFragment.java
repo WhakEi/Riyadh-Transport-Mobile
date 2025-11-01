@@ -258,12 +258,12 @@ public class RouteFragment extends Fragment {
                     } else if (responseBody.containsKey("error")) {
                         String error = (String) responseBody.get("error");
                         Toast.makeText(requireContext(),
-                                "Error: " + error,
+                                getString(R.string.error) + ": " + error,
                                 Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(requireContext(),
-                            "Failed to find route",
+                            R.string.error_failed_route,
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -293,7 +293,7 @@ public class RouteFragment extends Fragment {
             }
         } catch (Exception e) {
             Toast.makeText(requireContext(),
-                    "Error displaying route: " + e.getMessage(),
+                    getString(R.string.error) + ": " + e.getMessage(),
                     Toast.LENGTH_SHORT).show();
         }
     }

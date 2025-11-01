@@ -32,7 +32,7 @@ public class StationDetailsActivity extends AppCompatActivity {
         stationType = getIntent().getStringExtra("station_type");
         
         if (stationName == null) {
-            Toast.makeText(this, "Error: No station specified", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_no_station_specified, Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
@@ -69,17 +69,17 @@ public class StationDetailsActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     // Handle arrivals data
                     Toast.makeText(StationDetailsActivity.this, 
-                            "Arrivals loaded", Toast.LENGTH_SHORT).show();
+                            R.string.info_arrivals_loaded, Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(StationDetailsActivity.this, 
-                            "Failed to load arrivals", Toast.LENGTH_SHORT).show();
+                            R.string.error_failed_arrivals, Toast.LENGTH_SHORT).show();
                 }
             }
             
             @Override
             public void onFailure(Call<Map<String, Object>> call, Throwable t) {
                 Toast.makeText(StationDetailsActivity.this, 
-                        "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        getString(R.string.error) + ": " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

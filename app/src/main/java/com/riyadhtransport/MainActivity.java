@@ -53,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        // Load and apply saved language preference before anything else
+        loadSavedLanguage();
 
         // Configure OSMDroid
         Context ctx = getApplicationContext();
@@ -313,7 +316,26 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
+    private void loadSavedLanguage() {
+        SharedPreferences prefs = getSharedPreferences("AppSettings", MODE_PRIVATE);
+        String languageCode = prefs.getString("language", null);
+        
+        if (languageCode != null) {
+            Locale locale = new Locale(languageCode);
+            Locale.setDefault(locale);
+
+            Configuration config = new Configuration();
+            config.setLocale(locale);
+
+            getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+        }
+    }
+    
     private void changeLanguage(String languageCode) {
+        // Save language preference
+        SharedPreferences prefs = getSharedPreferences("AppSettings", MODE_PRIVATE);
+        prefs.edit().putString("language", languageCode).apply();
+        
         Locale locale = new Locale(languageCode);
         Locale.setDefault(locale);
 
@@ -322,6 +344,9 @@ public class MainActivity extends AppCompatActivity {
 
         getResources().updateConfiguration(config, getResources().getDisplayMetrics());
 
+        // Re-initialize API client to pick up language changes for /ar/ endpoints
+        com.riyadhtransport.api.ApiClient.init(this);
+        
         // Restart activity to apply changes
         recreate();
     }

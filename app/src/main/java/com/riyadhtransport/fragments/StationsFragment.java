@@ -100,7 +100,7 @@ public class StationsFragment extends Fragment {
             @Override
             public void onLocationError(String error) {
                 Toast.makeText(requireContext(),
-                        "Unable to get location. Using default.",
+                        R.string.error_location_default,
                         Toast.LENGTH_SHORT).show();
                 // Use Riyadh center as default
                 fetchNearbyStations(24.7136, 46.6753);

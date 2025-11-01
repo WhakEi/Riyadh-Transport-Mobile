@@ -112,4 +112,18 @@
     <string name="next_stop">next stop</string>
     <string name="current_location">current location</string>
     <string name="destination">destination</string>
+    
+    <!-- Error messages -->
+    <string name="error_no_line_specified">Error: No line specified</string>
+    <string name="error_no_station_specified">Error: No station specified</string>
+    <string name="error_failed_route">Failed to find route</string>
+    <string name="error_failed_line_details">Failed to load line details</string>
+    <string name="error_failed_arrivals">Failed to load arrivals</string>
+    <string name="error_location_unavailable">Unable to get location</string>
+    <string name="error_location_permission_denied">Location permission not granted</string>
+    <string name="error_location_getting">Error getting location: %s</string>
+    <string name="error_location_permission_error">Location permission error: %s</string>
+    <string name="error_location_default">Unable to get location. Using default.</string>
+    <string name="info_line_details_loaded">Line details loaded</string>
+    <string name="info_arrivals_loaded">Arrivals loaded</string>
 </resources>

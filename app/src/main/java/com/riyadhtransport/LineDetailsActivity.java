@@ -31,7 +31,7 @@ public class LineDetailsActivity extends AppCompatActivity {
         lineType = getIntent().getStringExtra("line_type");
         
         if (lineNumber == null) {
-            Toast.makeText(this, "Error: No line specified", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_no_line_specified, Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
@@ -67,17 +67,17 @@ public class LineDetailsActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     // Handle line data
                     Toast.makeText(LineDetailsActivity.this, 
-                            "Line details loaded", Toast.LENGTH_SHORT).show();
+                            R.string.info_line_details_loaded, Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(LineDetailsActivity.this, 
-                            "Failed to load line details", Toast.LENGTH_SHORT).show();
+                            R.string.error_failed_line_details, Toast.LENGTH_SHORT).show();
                 }
             }
             
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 Toast.makeText(LineDetailsActivity.this, 
-                        "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        getString(R.string.error) + ": " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

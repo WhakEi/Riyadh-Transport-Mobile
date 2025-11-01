@@ -44,7 +44,7 @@ public class LocationHelper {
     
     public void getCurrentLocation(LocationCallback callback) {
         if (!hasLocationPermission(context)) {
-            callback.onLocationError("Location permission not granted");
+            callback.onLocationError(context.getString(com.riyadhtransport.R.string.error_location_permission_denied));
             return;
         }
         
@@ -54,14 +54,14 @@ public class LocationHelper {
                         if (location != null) {
                             callback.onLocationReceived(location.getLatitude(), location.getLongitude());
                         } else {
-                            callback.onLocationError("Unable to get location");
+                            callback.onLocationError(context.getString(com.riyadhtransport.R.string.error_location_unavailable));
                         }
                     })
                     .addOnFailureListener(e -> {
-                        callback.onLocationError("Error getting location: " + e.getMessage());
+                        callback.onLocationError(context.getString(com.riyadhtransport.R.string.error_location_getting, e.getMessage()));
                     });
         } catch (SecurityException e) {
-            callback.onLocationError("Location permission error: " + e.getMessage());
+            callback.onLocationError(context.getString(com.riyadhtransport.R.string.error_location_permission_error, e.getMessage()));
         }
     }
     
